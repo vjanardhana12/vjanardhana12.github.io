@@ -1,0 +1,88 @@
+{{/*
+  asset-gallery shortcode
+  Usage:
+    {{< asset-gallery >}}                   — all assets
+    {{< asset-gallery type="tool" >}}       — filter by type
+    {{< asset-gallery featured="true" >}}   — only featured
+    {{< asset-gallery tag="D365FO" >}}      — filter by tag
+
+  Reads from data/assets.yaml.
+*/}}
+
+{{- $type := .Get "type" -}}
+{{- $featured := .Get "featured" -}}
+{{- $tag := .Get "tag" -}}
+{{- $assets := slice -}}
+
+{{- range (index hugo.Data.assets "assets") -}}
+  {{- $keep := true -}}
+  {{- if $type -}}
+    {{- if ne .type $type -}}{{- $keep = false -}}{{- end -}}
+  {{- end -}}
+  {{- if eq $featured "true" -}}
+    {{- if not .featured -}}{{- $keep = false -}}{{- end -}}
+  {{- end -}}
+  {{- if $tag -}}
+    {{- if not (in (.tags | default slice) $tag) -}}{{- $keep = false -}}{{- end -}}
+  {{- end -}}
+  {{- if $keep -}}
+    {{- $assets = $assets | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $assets -}}
+<p style="opacity:0.6;font-style:italic;margin-top:1.5rem;">No assets yet — they'll appear here as soon as the manifest is updated.</p>
+{{- else -}}
+<div class="asset-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-top:1.5rem;">
+{{- range $assets }}
+  <div class="asset-card" style="border:1px solid var(--color-neutral-300, #e5e7eb);border-radius:12px;padding:1.25rem;background:var(--color-neutral-100, transparent);display:flex;flex-direction:column;gap:0.75rem;transition:transform 0.15s ease,box-shadow 0.15s ease;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;opacity:0.7;">
+      {{- $icon := "" -}}
+      {{- if eq .type "tool" -}}{{- $icon = "🛠️" -}}{{- end -}}
+      {{- if eq .type "guide" -}}{{- $icon = "📚" -}}{{- end -}}
+      {{- if eq .type "video" -}}{{- $icon = "📺" -}}{{- end -}}
+      {{- if eq .type "snippet" -}}{{- $icon = "🧠" -}}{{- end -}}
+      <span>{{ $icon }}</span><span>{{ .type }}</span>
+      <span style="margin-left:auto;font-size:0.75rem;padding:0.15rem 0.55rem;border-radius:999px;
+        {{- if eq .visibility "public" -}} background:#dcfce7;color:#166534; {{- end -}}
+        {{- if eq .visibility "ms-internal" -}} background:#dbeafe;color:#1e40af; {{- end -}}
+        {{- if eq .visibility "private" -}} background:#fef3c7;color:#92400e; {{- end -}}
+      ">
+        {{- if eq .visibility "public" -}}🌐 Public{{- end -}}
+        {{- if eq .visibility "ms-internal" -}}🔒 Microsoft{{- end -}}
+        {{- if eq .visibility "private" -}}🔐 On request{{- end -}}
+      </span>
+    </div>
+
+    <h3 style="margin:0;font-size:1.15rem;line-height:1.3;">{{ .title }}</h3>
+
+    <p style="margin:0;font-size:0.92rem;opacity:0.85;flex-grow:1;">{{ .description }}</p>
+
+    {{- with .tags }}
+    <div style="display:flex;flex-wrap:wrap;gap:0.35rem;font-size:0.75rem;">
+      {{- range . }}
+      <a href="/tags/{{ . | urlize }}/" style="padding:0.15rem 0.55rem;border-radius:6px;background:var(--color-neutral-200, #f3f4f6);text-decoration:none;opacity:0.85;">#{{ . }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    {{- if or .url .video .repo .doc }}
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.25rem;">
+      {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:var(--color-primary-500, #6366f1);color:white;text-decoration:none;">Open ↗</a>{{- end }}
+      {{- with .video }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:#dc2626;color:white;text-decoration:none;">Watch ↗</a>{{- end }}
+      {{- with .doc }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:var(--color-neutral-300, #e5e7eb);text-decoration:none;">Docs ↗</a>{{- end }}
+    </div>
+    {{- end }}
+
+    {{- if or .version .date .internal_note }}
+    <div style="font-size:0.75rem;opacity:0.6;border-top:1px solid var(--color-neutral-200, #f3f4f6);padding-top:0.5rem;">
+      {{- with .version }}v{{ . }}{{- end }}
+      {{- if and .version .date }} · {{ end -}}
+      {{- with .date }}{{ dateFormat "Jan 2006" . }}{{- end }}
+      {{- with .internal_note }}<br/><em>{{ . }}</em>{{- end }}
+    </div>
+    {{- end }}
+  </div>
+{{- end }}
+</div>
+{{- end -}}

@@ -1,0 +1,73 @@
+# Blowfish — site language config (en)
+
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Vinod Kumar K J"
+
+[params]
+  displayName = "Vinod Kumar K J"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Notes, tools and tutorials on D365FO, AI, and whatever's next."
+  copyright = "© 2026 Vinod Kumar K J"
+
+[params.author]
+  name = "Vinod Kumar K J"
+  image = "img/avatar.jpg"
+  headline = "D365FO · AI · perpetual learner"
+  bio = "Engineer and writer. I publish tools, kits, guides and tutorials — mostly on Dynamics 365 Finance & Operations and AI-assisted ERP, plus whatever I happen to be learning next."
+  links = [
+    { linkedin = "https://www.linkedin.com/in/your-handle-here" },
+    { github = "https://github.com/vjanardhana12" },
+    { youtube = "https://www.youtube.com/@your-channel-here" },
+    { email = "mailto:vinodkumar.kj@gmail.com" },
+    { rss = "/index.xml" },
+  ]
+
+[[menu.main]]
+  name = "Tools & Kits"
+  pageRef = "projects"
+  weight = 10
+
+[[menu.main]]
+  name = "Guides"
+  pageRef = "guides"
+  weight = 20
+
+[[menu.main]]
+  name = "Videos"
+  pageRef = "videos"
+  weight = 30
+
+[[menu.main]]
+  name = "Blog"
+  pageRef = "blog"
+  weight = 40
+
+[[menu.main]]
+  name = "Snippets"
+  pageRef = "snippets"
+  weight = 50
+
+[[menu.main]]
+  name = "About"
+  pageRef = "about"
+  weight = 60
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  pageRef = "tags"
+  weight = 70
+
+[[menu.footer]]
+  name = "GitHub"
+  url = "https://github.com/vjanardhana12"
+  weight = 10
+
+[[menu.footer]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 20

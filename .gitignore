@@ -1,0 +1,21 @@
+# Hugo build output
+public/
+resources/
+.hugo_build.lock
+
+# Hugo cache
+/.cache/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Node (if you ever add npm tooling for theme)
+node_modules/
+package-lock.json

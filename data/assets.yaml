@@ -1,0 +1,34 @@
+# =============================================================================
+# Assets manifest — single source of truth for everything published.
+#
+# Every entry shows up as a card on the matching section page (Tools/Guides/
+# Videos/Snippets) AND on the homepage if `featured: true`.
+#
+# Add a new asset = append a new block here, push to GitHub. Done.
+#
+# Required fields:  title, type, description, visibility
+# Optional fields:  tags, url, repo, video, doc, version, date, featured, internal_note
+#
+# type        : tool | guide | video | snippet
+# visibility  : public | ms-internal | private
+# url         : main link visitors should click (any URL)
+# repo        : github repo (used to auto-fetch latest release)
+# video       : youtube or vimeo URL (auto-embeds in card if type=video)
+# featured    : true to surface on the homepage "Featured" strip
+# =============================================================================
+
+assets:
+
+  - title: "D365FO MCP Onboarding Kit"
+    type: tool
+    description: >
+      Self-service kit to onboard D365 Finance & Operations developers to MCP —
+      includes a DevLead wizard, TFC and FC PowerShell setups, and a generic
+      project-init flow. Works against any tenant/environment.
+    tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
+    visibility: ms-internal
+    url: "https://github.com/mcaps-microsoft/D365FO-MCP-Onboarding"
+    repo: "mcaps-microsoft/D365FO-MCP-Onboarding"
+    date: 2026-04-23
+    featured: true
+    internal_note: "Public to Microsoft employees via mcaps-microsoft GitHub org."
