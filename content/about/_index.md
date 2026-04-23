@@ -9,11 +9,11 @@ showTableOfContents: false
 
 Hi, I'm **Vinod Kumar K J**.
 
-I work on Microsoft Dynamics 365 Finance & Operations and AI-assisted ERP. I publish here whatever I think might be useful to others — small PowerShell scripts, larger onboarding kits, F&O troubleshooting notes, tutorial videos, and the occasional opinion piece.
+I work on **Microsoft Dynamics 365 Finance & Operations** (D365 F&O) and AI-assisted ERP. I publish here whatever I think might be useful to others — small PowerShell scripts, larger onboarding kits, D365 F&O troubleshooting notes, tutorial videos, and the occasional opinion piece.
 
 ## What you'll find here
 
-- **Tools & Kits** — open-source tooling I've built, mostly for D365FO developers
+- **Tools & Kits** — open-source tooling I've built, mostly for D365 F&O developers
 - **Guides** — long-form how-tos and reference material
 - **Videos** — short walkthroughs of the tools I publish
 - **Blog** — issues + resolutions, lessons, observations
@@ -21,7 +21,7 @@ I work on Microsoft Dynamics 365 Finance & Operations and AI-assisted ERP. I pub
 
 ## Topics
 
-D365 Finance & Operations · X++ · MCP (Model Context Protocol) · AI-assisted ERP · GitHub Copilot · PowerShell · DevOps
+D365 F&O · X++ · MCP (Model Context Protocol) · AI-assisted ERP · GitHub Copilot · PowerShell · DevOps
 
 ## Connect
 

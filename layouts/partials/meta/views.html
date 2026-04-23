@@ -1,0 +1,16 @@
+{{/*
+  Custom override — GoatCounter-powered view count.
+  Replaces the theme's Firebase-based version.
+  Renders only when goatcounterAnalytics.code is set.
+*/}}
+{{ $code := site.Params.goatcounterAnalytics.code }}
+{{ if $code }}
+  {{ $path := .RelPermalink }}
+  <span class="inline-block align-middle text-sm" title="Page views (GoatCounter)">
+    <span
+      class="gc-views opacity-60 transition-opacity"
+      data-path="{{ $path }}">
+      👁 …
+    </span>
+  </span>
+{{ end }}

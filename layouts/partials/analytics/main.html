@@ -1,0 +1,17 @@
+{{/* Custom override of theme partial — adds GoatCounter alongside other providers */}}
+
+{{ if site.Params.fathomAnalytics.site }}
+  {{ partial "analytics/fathom.html" . }}
+{{ end }}
+{{ if site.Config.Services.GoogleAnalytics.ID }}
+  {{ partial "analytics/ga.html" . }}
+{{ end }}
+{{ if site.Params.umamiAnalytics.websiteid }}
+  {{ partial "analytics/umami.html" . }}
+{{ end }}
+{{ if site.Params.selineAnalytics.token }}
+  {{ partial "analytics/seline.html" . }}
+{{ end }}
+{{ if site.Params.goatcounterAnalytics.code }}
+  {{ partial "analytics/goatcounter.html" . }}
+{{ end }}

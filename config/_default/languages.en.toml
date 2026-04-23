@@ -10,13 +10,13 @@ title = "Vinod Kumar K J"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Notes, tools and tutorials on D365FO, AI, and whatever's next."
+  description = "Notes, tools and tutorials on D365 F&O, AI, and whatever's next."
   copyright = "© 2026 Vinod Kumar K J"
 
 [params.author]
   name = "Vinod Kumar K J"
   image = "img/avatar.jpg"
-  headline = "D365FO · AI · perpetual learner"
+  headline = "D365 F&O · AI · perpetual learner"
   bio = "Engineer and writer. I publish tools, kits, guides and tutorials — mostly on Dynamics 365 Finance & Operations and AI-assisted ERP, plus whatever I happen to be learning next."
   links = [
     { linkedin = "https://www.linkedin.com/in/your-handle-here" },

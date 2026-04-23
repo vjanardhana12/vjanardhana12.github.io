@@ -1,0 +1,35 @@
+{{/*
+  GoatCounter analytics + per-page view badge.
+  Reads site.Params.goatcounterAnalytics.code  (your account name, e.g. "vjanardhana12")
+*/}}
+{{ $code := site.Params.goatcounterAnalytics.code }}
+{{ if $code }}
+{{ $endpoint := printf "https://%s.goatcounter.com/count" $code }}
+<script
+  data-goatcounter="{{ $endpoint }}"
+  async src="//gc.zgo.at/count.js">
+</script>
+
+{{/* Inline helper: fetches view count for current path and injects a small badge
+     into any element marked with class="gc-views" (used by our partials below). */}}
+<script>
+(function () {
+  var code = {{ $code }};
+  function loadCount(el) {
+    var path = el.getAttribute('data-path') || location.pathname;
+    var url = 'https://' + code + '.goatcounter.com/counter/' + encodeURIComponent(path) + '.json';
+    fetch(url)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data.count_unique) { return; }
+        el.textContent = '👁 ' + data.count_unique + ' views';
+        el.style.opacity = '1';
+      })
+      .catch(function () { /* silent */ });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.gc-views').forEach(loadCount);
+  });
+})();
+</script>
+{{ end }}

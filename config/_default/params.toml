@@ -13,8 +13,8 @@ disableImageOptimization = false
 disableTextInHeader = false
 
 # Future: paste GoatCounter / Plausible site code here
-# [params.analytics.goatcounter]
-#   code = "your-site-code"
+[goatcounterAnalytics]
+  code = "vjanardhana12"
 
 [header]
   layout = "fixed"                # "basic", "fixed", "fixed-fill", "fixed-fill-blur"
@@ -57,6 +57,7 @@ disableTextInHeader = false
   showAuthorBottom = false
   showWordCount = false
   showSummary = true
+  showViews = true
   sharingLinks = ["linkedin", "twitter", "email"]
   showZenMode = true
 

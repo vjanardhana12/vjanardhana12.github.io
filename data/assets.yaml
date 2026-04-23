@@ -19,12 +19,13 @@
 
 assets:
 
-  - title: "D365FO MCP Onboarding Kit"
+  - title: "D365 F&O MCP Onboarding Kit"
     type: tool
     description: >
-      Self-service kit to onboard D365 Finance & Operations developers to MCP —
-      includes a DevLead wizard, TFC and FC PowerShell setups, and a generic
-      project-init flow. Works against any tenant/environment.
+      Self-service kit to onboard D365 F&O developers to MCP — includes a
+      DevLead wizard, TFC and FC PowerShell setups, and a generic project-init
+      flow. Works against any tenant/environment.
+      
     tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
     visibility: ms-internal
     url: "https://github.com/mcaps-microsoft/D365FO-MCP-Onboarding"
