@@ -33,3 +33,17 @@ assets:
     date: 2026-04-23
     featured: true
     internal_note: "Public to Microsoft employees via mcaps-microsoft GitHub org."
+
+  - title: "D365 F&O NuGet Sync Tool"
+    type: tool
+    description: >
+      One-click sync of the 5 D365 F&O NuGet packages from LCS Shared Asset
+      Library to your Azure DevOps Artifacts feed. Smart compare (skips what's
+      already in the feed), parallel uploads, single 54 KB EXE, no install.
+    tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
+    visibility: public
+    url: "https://github.com/vjanardhana12/d365fo-nuget-sync"
+    repo: "vjanardhana12/d365fo-nuget-sync"
+    version: "v1.0.0"
+    date: 2026-04-25
+    featured: true
