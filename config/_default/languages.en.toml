@@ -19,9 +19,7 @@ title = "Vinod Kumar K J"
   headline = "D365 F&O · AI · perpetual learner"
   bio = "Engineer and writer. I publish tools, kits, guides and tutorials — mostly on Dynamics 365 Finance & Operations and AI-assisted ERP, plus whatever I happen to be learning next."
   links = [
-    { linkedin = "https://www.linkedin.com/in/your-handle-here" },
     { github = "https://github.com/vjanardhana12" },
-    { youtube = "https://www.youtube.com/@your-channel-here" },
     { email = "mailto:vinodkumar.kj@gmail.com" },
     { rss = "/index.xml" },
   ]

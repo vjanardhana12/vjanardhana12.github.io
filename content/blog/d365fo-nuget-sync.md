@@ -1,6 +1,6 @@
 ---
 title: "D365 F&O NuGet Sync — one-click LCS to Azure DevOps Artifacts"
-date: 2026-04-25
+date: 2026-04-24
 draft: false
 description: "A small PowerShell tool that compares your ADO feed with local .nupkg files and pushes only what's missing. Single EXE. Open source."
 tags: ["D365FO", "PowerShell", "ALM", "DevOps", "NuGet"]

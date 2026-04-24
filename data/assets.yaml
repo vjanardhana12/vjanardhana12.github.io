@@ -44,6 +44,6 @@ assets:
     visibility: public
     url: "https://github.com/vjanardhana12/d365fo-nuget-sync"
     repo: "vjanardhana12/d365fo-nuget-sync"
-    version: "v1.0.0"
-    date: 2026-04-25
+    version: "1.0.0"
+    date: 2026-04-24
     featured: true
