@@ -102,6 +102,15 @@
   @media (min-width: 640px)  { body { padding-left: 2rem  !important; padding-right: 2rem  !important; } }
   @media (min-width: 1024px) { body { padding-left: 3rem  !important; padding-right: 3rem  !important; } }
 
+  /* Widen the fixed header bar to match the homepage width */
+  .fixed.inset-x-0 > .max-w-7xl {
+    max-width: 100% !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  @media (min-width: 640px)  { .fixed.inset-x-0 > .max-w-7xl { padding-left: 2rem !important; padding-right: 2rem !important; } }
+  @media (min-width: 1024px) { .fixed.inset-x-0 > .max-w-7xl { padding-left: 3rem !important; padding-right: 3rem !important; } }
+
   /* ─── 3-column grid ─── */
   .hp-grid {
     display: grid;
