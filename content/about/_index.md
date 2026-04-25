@@ -25,7 +25,7 @@ D365 F&O · X++ · MCP (Model Context Protocol) · AI-assisted ERP · GitHub Cop
 
 ## Connect
 
-- LinkedIn — *(link in the header)*
+- LinkedIn — [vinod-kumar-k-j](https://www.linkedin.com/in/vinod-kumar-k-j-32407174/)
 - GitHub — [vjanardhana12](https://github.com/vjanardhana12)
 - YouTube — *(link in the header)*
 - Email — vinodkumar.kj@gmail.com
