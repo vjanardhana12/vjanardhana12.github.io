@@ -10,14 +10,14 @@ title = "Vinod Kumar K J"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Notes, tools and tutorials on D365 F&O, AI, and whatever's next."
+  description = "Tools, kits, guides and notes from real projects — across D365, cloud, AI and developer tooling."
   copyright = "© 2026 Vinod Kumar K J"
 
 [params.author]
   name = "Vinod Kumar K J"
   image = "img/avatar.jpg"
-  headline = "D365 F&O · AI · perpetual learner"
-  bio = "Engineer and writer. I publish tools, kits, guides and tutorials — mostly on Dynamics 365 Finance & Operations and AI-assisted ERP, plus whatever I happen to be learning next."
+  headline = "Engineer · D365 · cloud · AI · perpetual learner"
+  bio = "Engineer and writer. Publishing tools, kits, guides and tutorials built while solving real problems — across D365 Finance & Operations, Azure, AI-assisted development and whatever happens to be next."
   links = [
     { linkedin = "https://www.linkedin.com/in/vinod-kumar-k-j-32407174/" },
     { github = "https://github.com/vjanardhana12" },
