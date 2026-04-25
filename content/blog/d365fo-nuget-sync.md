@@ -48,7 +48,7 @@ The semi-automated approach (script → opens LCS → you click download → scr
 
 ## How to get it
 
-- **Download:** [github.com/vjanardhana12/d365fo-nuget-sync/releases/latest](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
+- **Download:** [Sync-D365FONuGet.exe (direct, 56 KB)](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.exe) · or [view release notes](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
 - **Source:** [github.com/vjanardhana12/d365fo-nuget-sync](https://github.com/vjanardhana12/d365fo-nuget-sync)
 - **License:** MIT
 

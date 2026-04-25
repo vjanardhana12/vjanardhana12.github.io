@@ -41,8 +41,8 @@
     </div>
   </div>
   <div class="hp-release-actions">
-    {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hp-release-cta">Open ↗</a>{{ end -}}
-    {{- with .repo }}<a href="https://github.com/{{ . }}/releases/latest" target="_blank" rel="noopener" class="hp-release-cta-secondary">Download</a>{{ end -}}
+    {{- with .download }}<a href="{{ . }}" class="hp-release-cta">⬇ Download EXE</a>{{ end -}}
+    {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hp-release-cta-secondary">View on GitHub ↗</a>{{ end -}}
   </div>
 </div>
 
