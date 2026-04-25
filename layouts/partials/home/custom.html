@@ -132,15 +132,26 @@
       </div>
     </div>
 
-    {{/* ─── Live GitHub activity card (SVG from github-readme-stats) ─── */}}
-    <a href="https://github.com/vjanardhana12" target="_blank" rel="noopener" class="hp-gh-card" title="GitHub profile">
-      <img
-        src="https://github-readme-stats.vercel.app/api?username=vjanardhana12&show_icons=true&hide_border=true&theme=tokyonight&hide=contribs&card_width=280&include_all_commits=true"
-        alt="GitHub stats"
-        loading="lazy"
-        onerror="this.parentElement.style.display='none'"
-      />
-    </a>
+    {{/* ─── Recently shipped (auto from data/assets.yaml, sorted by date) ─── */}}
+    {{- $sorted := sort (index hugo.Data.assets "assets") "date" "desc" -}}
+    {{- $recent := first 3 $sorted -}}
+    <div class="hp-recent">
+      <div class="hp-recent-title">🚀 Recently shipped</div>
+      <ul class="hp-recent-list">
+        {{- range $recent }}
+        {{- $href := .slug | default .url -}}
+        <li>
+          <a href="{{ $href }}"{{ if and (not .slug) .url }} target="_blank" rel="noopener"{{ end }}>
+            <div class="hp-recent-row">
+              <span class="hp-recent-name">{{ .title }}</span>
+              {{- with .version }}<span class="hp-recent-ver">v{{ . }}</span>{{ end }}
+            </div>
+            {{- with .date }}<div class="hp-recent-date">{{ dateFormat "Jan 2, 2006" . }}</div>{{ end }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
 
     {{/* ─── Latest from D365 F&O + AI (curated, verified working links) ─── */}}
     <div class="hp-news">
@@ -461,6 +472,68 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* ─── Recently shipped ─── */
+  .hp-recent {
+    margin-top: 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: 14px;
+    border: 1px solid var(--color-neutral-200);
+    background: var(--color-neutral-50);
+  }
+  .dark .hp-recent {
+    border-color: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+  }
+  .hp-recent-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+  }
+  .hp-recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hp-recent-list a {
+    display: block;
+    padding: 0.5rem 0.55rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .hp-recent-list a:hover {
+    background: rgba(34, 211, 238, 0.08);
+  }
+  .hp-recent-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .hp-recent-name {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  .hp-recent-ver {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #22d3ee;
+    flex-shrink: 0;
+  }
+  .hp-recent-date {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-top: 2px;
   }
 
   /* ─── D365 F&O news widget ─── */

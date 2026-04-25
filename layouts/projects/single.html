@@ -1,0 +1,31 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article>
+    {{/* Back to home button */}}
+    <div style="margin-bottom:1rem;">
+      <a href="/" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.85rem;border-radius:8px;border:1px solid var(--color-neutral-200);color:var(--color-neutral-600);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='var(--color-neutral-100)';this.style.color='var(--color-primary-600)';" onmouseout="this.style.background='transparent';this.style.color='var(--color-neutral-600)';">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.4 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/></svg>
+        Back to home
+      </a>
+    </div>
+
+    {{/* Header */}}
+    <header id="single_header" class="mt-2 max-w-prose">
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+      </div>
+    </header>
+
+    {{/* Body */}}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      <div class="min-w-0 min-h-0 max-w-fit">
+        <div class="article-content max-w-prose mb-20">
+          {{ .Content }}
+        </div>
+      </div>
+    </section>
+  </article>
+{{ end }}
