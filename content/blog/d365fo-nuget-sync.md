@@ -48,7 +48,8 @@ The semi-automated approach (script → opens LCS → you click download → scr
 
 ## How to get it
 
-- **Download:** [Sync-D365FONuGet.exe (direct, 56 KB)](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.exe) · or [view release notes](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
+- **Download:** [Sync-D365FONuGet.zip (direct, ~26 KB)](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip) · or [view release notes](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
+  - *First run on Windows*: right-click the zip → **Properties → Unblock** before extracting. SmartScreen may prompt on first launch (*More info → Run anyway*) — expected for unsigned indie tools. The source is in the repo, every line auditable.
 - **Source:** [github.com/vjanardhana12/d365fo-nuget-sync](https://github.com/vjanardhana12/d365fo-nuget-sync)
 - **License:** MIT
 
