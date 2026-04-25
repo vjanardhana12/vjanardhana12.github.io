@@ -39,7 +39,7 @@ assets:
     description: >
       One-click sync of the 5 D365 F&O NuGet packages from LCS Shared Asset
       Library to your Azure DevOps Artifacts feed. Smart compare (skips what's
-      already in the feed), parallel uploads, single 54 KB EXE, no install.
+      already in the feed), parallel uploads, single 56 KB EXE, no install.
     tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
     visibility: public
     url: "https://github.com/vjanardhana12/d365fo-nuget-sync"

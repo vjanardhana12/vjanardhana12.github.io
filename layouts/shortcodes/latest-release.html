@@ -17,14 +17,137 @@
 {{- end -}}
 
 {{- with $latest }}
-<div style="margin:1.5rem 0 2rem 0;padding:1.1rem 1.4rem;border-radius:14px;background:linear-gradient(135deg, #0d6e7d 0%, #134e5e 60%, #0d1b22 100%);color:#e6f4f7;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;box-shadow:0 4px 18px rgba(34,211,238,0.15);">
-  <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#22d3ee;background:rgba(34,211,238,0.15);padding:0.3rem 0.7rem;border-radius:999px;border:1px solid rgba(34,211,238,0.4);">Latest Release</div>
-  <div style="flex:1;min-width:240px;">
-    <div style="font-size:1.05rem;font-weight:600;color:#ffffff;margin-bottom:0.15rem;">{{ .title }}{{ with .version }} <span style="color:#22d3ee;font-weight:500;">v{{ . }}</span>{{ end }}</div>
-    <div style="font-size:0.85rem;opacity:0.85;line-height:1.4;">{{ .description | truncate 160 }}</div>
+{{- $typeIcon := "✨" -}}
+{{- if eq .type "tool"    }}{{- $typeIcon = "🛠️" -}}{{- end -}}
+{{- if eq .type "guide"   }}{{- $typeIcon = "📚" -}}{{- end -}}
+{{- if eq .type "video"   }}{{- $typeIcon = "📺" -}}{{- end -}}
+{{- if eq .type "snippet" }}{{- $typeIcon = "🧠" -}}{{- end -}}
+{{- $visBadge := "" -}}
+{{- if eq .visibility "public"      }}{{- $visBadge = "🌐 Public" -}}{{- end -}}
+{{- if eq .visibility "ms-internal" }}{{- $visBadge = "🔒 Microsoft" -}}{{- end -}}
+{{- if eq .visibility "private"     }}{{- $visBadge = "🔐 Private" -}}{{- end -}}
+<div class="hp-release">
+  <div class="hp-release-left">
+    <span class="hp-release-pill">Latest Release</span>
+    <div class="hp-release-icon">{{ $typeIcon }}</div>
   </div>
-  {{- with .url }}
-  <a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.9rem;padding:0.55rem 1.1rem;border-radius:8px;background:#22d3ee;color:#0d1b22;text-decoration:none;font-weight:600;white-space:nowrap;">Open ↗</a>
-  {{- end }}
+  <div class="hp-release-body">
+    <div class="hp-release-title">{{ .title }}{{ with .version }} <span class="hp-release-ver">v{{ . }}</span>{{ end }}</div>
+    <div class="hp-release-desc">{{ .description }}</div>
+    <div class="hp-release-meta">
+      {{- with .date }}<span class="hp-release-meta-item">📅 {{ dateFormat "Jan 2, 2026" . }}</span>{{ end -}}
+      {{- with $visBadge }}<span class="hp-release-meta-item">{{ . }}</span>{{ end -}}
+      {{- with .tags }}{{- range first 4 . }}<span class="hp-release-tag">#{{ . }}</span>{{ end }}{{ end -}}
+    </div>
+  </div>
+  <div class="hp-release-actions">
+    {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hp-release-cta">Open ↗</a>{{ end -}}
+    {{- with .repo }}<a href="https://github.com/{{ . }}/releases/latest" target="_blank" rel="noopener" class="hp-release-cta-secondary">Download</a>{{ end -}}
+  </div>
 </div>
+
+<style>
+  .hp-release {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+    margin: 0 0 2rem 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0d6e7d 0%, #134e5e 55%, #0d1b22 100%);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    box-shadow: 0 6px 24px rgba(34, 211, 238, 0.12);
+    color: #e6f4f7;
+  }
+  .hp-release-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 110px;
+  }
+  .hp-release-pill {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.15);
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    white-space: nowrap;
+  }
+  .hp-release-icon { font-size: 1.8rem; line-height: 1; }
+  .hp-release-body { min-width: 0; }
+  .hp-release-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+  }
+  .hp-release-ver { color: #22d3ee; font-weight: 500; font-size: 0.95em; }
+  .hp-release-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    opacity: 0.9;
+    margin-bottom: 0.75rem;
+  }
+  .hp-release-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    align-items: center;
+  }
+  .hp-release-meta-item {
+    font-size: 0.72rem;
+    color: #b8d4d9;
+    opacity: 0.85;
+  }
+  .hp-release-tag {
+    font-size: 0.7rem;
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .hp-release-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 130px;
+  }
+  .hp-release-cta {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    background: #22d3ee;
+    color: #0d1b22 !important;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .hp-release-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4); }
+  .hp-release-cta-secondary {
+    text-align: center;
+    font-size: 0.82rem;
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    background: transparent;
+    color: #22d3ee !important;
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    border: 1px solid rgba(34, 211, 238, 0.3);
+  }
+  .hp-release-cta-secondary:hover { background: rgba(34, 211, 238, 0.08); }
+  @media (max-width: 720px) {
+    .hp-release { grid-template-columns: 1fr; text-align: center; }
+    .hp-release-actions { flex-direction: row; justify-content: center; }
+  }
+</style>
 {{- end -}}
