@@ -27,11 +27,11 @@ disableTextInHeader = false
   showScrollToTop = true
 
 [homepage]
-  layout = "profile"              # "page", "profile", "hero", "card", "background", "custom"
-  homepageImage = ""              # optional hero image
-  showRecent = true
+  layout = "custom"               # custom 3-column layout
+  homepageImage = ""
+  showRecent = false
   showRecentItems = 6
-  showMoreLink = true
+  showMoreLink = false
   showMoreLinkDest = "/blog/"
   cardView = true
   cardViewScreenWidth = false

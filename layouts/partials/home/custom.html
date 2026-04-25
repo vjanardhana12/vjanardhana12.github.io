@@ -1,0 +1,285 @@
+{{/*
+  Custom 3-column homepage layout
+  Left:   Category sidebar navigation
+  Center: Latest release + featured asset gallery + page content
+  Right:  Profile card (avatar, name, headline, bio, links)
+*/}}
+
+{{- $author := .Site.Params.author -}}
+{{- $avatar := resources.Get "img/avatar.jpg" -}}
+
+<div class="hp-grid">
+
+  <!-- ─── LEFT: Category sidebar ─── -->
+  <aside class="hp-sidebar">
+    <nav class="hp-nav">
+      <div class="hp-nav-title">Browse</div>
+      <a href="/projects/" class="hp-nav-item">
+        <span class="hp-nav-icon">🛠️</span>
+        <span>Tools &amp; Kits</span>
+      </a>
+      <a href="/guides/" class="hp-nav-item">
+        <span class="hp-nav-icon">📚</span>
+        <span>Guides</span>
+      </a>
+      <a href="/videos/" class="hp-nav-item">
+        <span class="hp-nav-icon">📺</span>
+        <span>Videos</span>
+      </a>
+      <a href="/blog/" class="hp-nav-item">
+        <span class="hp-nav-icon">📝</span>
+        <span>Blog</span>
+      </a>
+      <a href="/snippets/" class="hp-nav-item">
+        <span class="hp-nav-icon">🧠</span>
+        <span>Snippets</span>
+      </a>
+      <div class="hp-nav-divider"></div>
+      <div class="hp-nav-title">Discover</div>
+      <a href="/tags/" class="hp-nav-item">
+        <span class="hp-nav-icon">🏷️</span>
+        <span>Tags</span>
+      </a>
+      <a href="/about/" class="hp-nav-item">
+        <span class="hp-nav-icon">👤</span>
+        <span>About</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─── CENTER: Main content ─── -->
+  <main class="hp-main">
+    {{ .Content }}
+  </main>
+
+  <!-- ─── RIGHT: Profile card ─── -->
+  <aside class="hp-profile">
+    <div class="hp-profile-card">
+      {{- with $avatar }}
+      <img src="{{ .RelPermalink }}" alt="{{ $author.name }}" class="hp-avatar" />
+      {{- end }}
+      <h2 class="hp-name">{{ $author.name }}</h2>
+      <p class="hp-headline">{{ $author.headline }}</p>
+      <p class="hp-bio">{{ $author.bio }}</p>
+      <div class="hp-links">
+        {{- range $author.links }}
+          {{- range $key, $val := . }}
+            {{- if eq $key "github" }}
+            <a href="{{ $val }}" target="_blank" rel="noopener" class="hp-link" title="GitHub">
+              <svg viewBox="0 0 16 16" fill="currentColor" width="20" height="20"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            </a>
+            {{- end }}
+            {{- if eq $key "email" }}
+            <a href="{{ $val }}" class="hp-link" title="Email">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            </a>
+            {{- end }}
+            {{- if eq $key "rss" }}
+            <a href="{{ $val }}" class="hp-link" title="RSS">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z"/><path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1z"/><path d="M3 15a2 2 0 114 0 2 2 0 01-4 0z"/></svg>
+            </a>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<style>
+  /* ─── 3-column grid ─── */
+  .hp-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 280px;
+    gap: 2rem;
+    align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  /* ─── LEFT: Sidebar nav ─── */
+  .hp-sidebar {
+    position: sticky;
+    top: 5rem;
+  }
+  .hp-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hp-nav-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    padding: 0.5rem 0.75rem 0.25rem;
+  }
+  .hp-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-neutral-700);
+    transition: background 0.15s, color 0.15s;
+  }
+  .hp-nav-item:hover {
+    background: var(--color-neutral-100);
+    color: var(--color-primary-600);
+  }
+  .dark .hp-nav-item {
+    color: var(--color-neutral-300);
+  }
+  .dark .hp-nav-item:hover {
+    background: var(--color-neutral-800);
+    color: var(--color-primary-400);
+  }
+  .hp-nav-icon {
+    font-size: 1.1rem;
+    width: 1.4rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .hp-nav-divider {
+    height: 1px;
+    background: var(--color-neutral-200);
+    margin: 0.5rem 0.75rem;
+  }
+  .dark .hp-nav-divider {
+    background: var(--color-neutral-700);
+  }
+
+  /* ─── CENTER: Main content ─── */
+  .hp-main {
+    min-width: 0;
+  }
+
+  /* ─── RIGHT: Profile card ─── */
+  .hp-profile {
+    position: sticky;
+    top: 5rem;
+  }
+  .hp-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--color-neutral-200);
+    background: var(--color-neutral-50);
+  }
+  .dark .hp-profile-card {
+    border-color: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+  }
+  .hp-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--color-primary-500);
+  }
+  .hp-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+  }
+  .hp-headline {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+  }
+  .hp-bio {
+    font-size: 0.82rem;
+    opacity: 0.8;
+    line-height: 1.55;
+    margin: 0 0 1rem 0;
+  }
+  .hp-links {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .hp-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-neutral-200);
+    color: var(--color-neutral-600);
+    transition: background 0.15s, color 0.15s;
+  }
+  .hp-link:hover {
+    background: var(--color-primary-500);
+    color: #fff;
+  }
+  .dark .hp-link {
+    background: var(--color-neutral-700);
+    color: var(--color-neutral-300);
+  }
+
+  /* ─── Responsive: tablet ─── */
+  @media (max-width: 1024px) {
+    .hp-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .hp-sidebar {
+      position: static;
+      order: 2;
+    }
+    .hp-main {
+      order: 1;
+    }
+    .hp-profile {
+      position: static;
+      order: 0;
+    }
+    .hp-profile-card {
+      flex-direction: row;
+      text-align: left;
+      gap: 1.25rem;
+    }
+    .hp-avatar {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 0;
+    }
+    .hp-links {
+      justify-content: flex-start;
+    }
+    .hp-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    .hp-nav-title, .hp-nav-divider {
+      display: none;
+    }
+    .hp-nav-item {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  /* ─── Responsive: phone ─── */
+  @media (max-width: 640px) {
+    .hp-profile-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .hp-links {
+      justify-content: center;
+    }
+  }
+</style>

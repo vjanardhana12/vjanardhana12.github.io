@@ -8,7 +8,7 @@ showHero: false
 showReadingTime: true
 ---
 
-If you've set up a D365 F&O build pipeline, you know the drill. Microsoft drops a new platform version on the **LCS Shared Asset Library**, you download 5 NuGet packages (one of them 450 MB), and push them to your **Azure DevOps Artifacts feed** with `nuget push` — one at a time. Easy to miss a package. Easy to push duplicates and get `409 Conflict`. Easy to lose track of which version is in the feed.
+If you've set up a D365 F&O build pipeline, you know the drill. Microsoft drops a new platform version on the **LCS Shared Asset Library**, you download 5 NuGet packages (one of them 450 MB), and push them to your **Azure DevOps Artifacts feed** with `nuget push` — one at a time. Easy to miss a package. Easy to push a version that's already in the feed and watch a 400 MB upload fail at the end because Azure Artifacts won't overwrite it. Easy to lose track of which version is in the feed.
 
 I got tired of that, so I built a small tool.
 
