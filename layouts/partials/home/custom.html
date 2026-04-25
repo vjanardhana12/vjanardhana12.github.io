@@ -103,6 +103,90 @@
         {{- end }}
       </div>
     </div>
+
+    {{/* ─── By the numbers (live from data/assets.yaml) ─── */}}
+    {{- $assets := index hugo.Data.assets "assets" -}}
+    {{- $tools := where $assets "type" "tool" -}}
+    {{- $publicTools := where $tools "visibility" "public" -}}
+    {{- $msTools := where $tools "visibility" "ms-internal" -}}
+    {{- $guides := where $assets "type" "guide" -}}
+    <div class="hp-stats">
+      <div class="hp-stats-title">By the numbers</div>
+      <div class="hp-stats-grid">
+        <div class="hp-stat">
+          <div class="hp-stat-num">{{ len $tools }}</div>
+          <div class="hp-stat-label">Tools shipped</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">{{ len $publicTools }}</div>
+          <div class="hp-stat-label">Open source</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">{{ len $msTools }}</div>
+          <div class="hp-stat-label">MS-internal</div>
+        </div>
+        <div class="hp-stat">
+          <div class="hp-stat-num">{{ len $guides }}</div>
+          <div class="hp-stat-label">Guides</div>
+        </div>
+      </div>
+    </div>
+
+    {{/* ─── Live GitHub activity card (SVG from github-readme-stats) ─── */}}
+    <a href="https://github.com/vjanardhana12" target="_blank" rel="noopener" class="hp-gh-card" title="GitHub profile">
+      <img
+        src="https://github-readme-stats.vercel.app/api?username=vjanardhana12&show_icons=true&hide_border=true&theme=tokyonight&hide=contribs&card_width=280&include_all_commits=true"
+        alt="GitHub stats"
+        loading="lazy"
+        onerror="this.parentElement.style.display='none'"
+      />
+    </a>
+
+    {{/* ─── Latest from D365 F&O (curated official Microsoft links) ─── */}}
+    <div class="hp-news">
+      <div class="hp-news-title">
+        <span>📰 Latest from D365 F&amp;O</span>
+      </div>
+      <ul class="hp-news-list">
+        <li>
+          <a href="https://learn.microsoft.com/en-us/dynamics365/release-plan/2026wave1/finance-operations/dynamics365-finance/" target="_blank" rel="noopener">
+            <span class="hp-news-tag">Release plan</span>
+            <span class="hp-news-text">2026 release wave 1 — Finance</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://learn.microsoft.com/en-us/dynamics365/release-plan/2026wave1/finance-operations/dynamics365-supply-chain-management/" target="_blank" rel="noopener">
+            <span class="hp-news-tag">Release plan</span>
+            <span class="hp-news-text">2026 release wave 1 — Supply Chain</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/fin-ops/get-started/whats-new-changed" target="_blank" rel="noopener">
+            <span class="hp-news-tag">What's new</span>
+            <span class="hp-news-text">Service updates &amp; platform changes</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://learn.microsoft.com/en-us/dynamics365/finance/get-started/whats-new-deprecated" target="_blank" rel="noopener">
+            <span class="hp-news-tag">Deprecations</span>
+            <span class="hp-news-text">Removed / deprecated features</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://cloudblogs.microsoft.com/dynamics365/" target="_blank" rel="noopener">
+            <span class="hp-news-tag">Blog</span>
+            <span class="hp-news-text">Dynamics 365 product team blog</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://yammer.com/dynamicsaxfeedbackprograms" target="_blank" rel="noopener">
+            <span class="hp-news-tag">Insider</span>
+            <span class="hp-news-text">FastTrack &amp; preview programs</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
   </aside>
 
 </div>
@@ -320,6 +404,124 @@
   .dark .hp-link {
     background: var(--color-neutral-700);
     color: var(--color-neutral-300);
+  }
+
+  /* ─── Stats card ─── */
+  .hp-stats {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    border: 1px solid var(--color-neutral-200);
+    background: var(--color-neutral-50);
+  }
+  .dark .hp-stats {
+    border-color: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+  }
+  .hp-stats-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.6rem;
+    text-align: center;
+  }
+  .hp-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .hp-stat {
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+    background: rgba(34, 211, 238, 0.06);
+  }
+  .dark .hp-stat { background: rgba(34, 211, 238, 0.1); }
+  .hp-stat-num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #22d3ee;
+    line-height: 1.1;
+  }
+  .hp-stat-label {
+    font-size: 0.7rem;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+
+  /* ─── GitHub card ─── */
+  .hp-gh-card {
+    display: block;
+    margin-top: 1rem;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .hp-gh-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 211, 238, 0.2);
+  }
+  .hp-gh-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ─── D365 F&O news widget ─── */
+  .hp-news {
+    margin-top: 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: 14px;
+    border: 1px solid var(--color-neutral-200);
+    background: var(--color-neutral-50);
+  }
+  .dark .hp-news {
+    border-color: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+  }
+  .hp-news-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+  }
+  .hp-news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hp-news-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0.45rem 0.55rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .hp-news-list a:hover {
+    background: rgba(34, 211, 238, 0.08);
+  }
+  .hp-news-tag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #22d3ee;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hp-news-text {
+    font-size: 0.82rem;
+    line-height: 1.3;
+    opacity: 0.9;
   }
 
   /* ─── Responsive: tablet ─── */
