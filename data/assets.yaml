@@ -1,4 +1,4 @@
-# =============================================================================
+﻿# =============================================================================
 # Assets manifest — single source of truth for everything published.
 #
 # Every entry shows up as a card on the matching section page (Tools/Guides/
@@ -27,12 +27,10 @@ assets:
       flow. Works against any tenant/environment.
       
     tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
-    visibility: ms-internal
-    url: "https://github.com/mcaps-microsoft/D365FO-MCP-Onboarding"
-    repo: "mcaps-microsoft/D365FO-MCP-Onboarding"
+    visibility: private
     date: 2026-04-23
-    featured: true
-    internal_note: "Public to Microsoft employees via mcaps-microsoft GitHub org."
+    featured: false
+    internal_note: "WIP — not yet published. Will go to mcaps-microsoft when ready. Tracker: _tracker/d365fo-mcp-onboarding-kit.html"
 
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
