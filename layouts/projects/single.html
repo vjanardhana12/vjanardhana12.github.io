@@ -28,6 +28,11 @@
   </article>
 
   <style>
+    /* Theme wraps every page in <main class="max-w-3xl"> (~768px).
+       Override for project detail pages so we use the full container. */
+    main {
+      max-width: 100% !important;
+    }
     /* Project detail: use full available width like the home page */
     .proj-detail {
       max-width: 100% !important;
