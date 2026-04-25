@@ -54,7 +54,9 @@
       </span>
     </div>
 
-    <h3 style="margin:0;font-size:1.15rem;line-height:1.3;">{{ .title }}</h3>
+    {{- if .url }}<a href="{{ .url }}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">{{- end }}
+    <h3 style="margin:0;font-size:1.15rem;line-height:1.3;cursor:pointer;transition:color 0.15s ease;{{ if .url }}color:var(--color-primary-500, #6366f1);{{ end }}">{{ .title }}</h3>
+    {{- if .url }}</a>{{- end }}
 
     <p style="margin:0;font-size:0.92rem;opacity:0.85;flex-grow:1;">{{ .description }}</p>
 
@@ -66,10 +68,10 @@
     </div>
     {{- end }}
 
-    {{- if or .url .video .repo .doc }}
+    {{- if or .video .repo .doc .download }}
     <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.25rem;">
-      {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:var(--color-primary-500, #6366f1);color:white;text-decoration:none;">Open ↗</a>{{- end }}
       {{- with .video }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:#dc2626;color:white;text-decoration:none;">Watch ↗</a>{{- end }}
+      {{- with .download }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:var(--color-primary-500, #6366f1);color:white;text-decoration:none;">Download ↗</a>{{- end }}
       {{- with .doc }}<a href="{{ . }}" target="_blank" rel="noopener" style="font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:8px;background:var(--color-neutral-300, #e5e7eb);text-decoration:none;">Docs ↗</a>{{- end }}
     </div>
     {{- end }}
