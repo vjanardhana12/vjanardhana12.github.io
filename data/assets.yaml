@@ -11,7 +11,7 @@ assets:
       - PowerShell
       - AI-ERP
       - Onboarding
-    visibility: private
+    visibility: ms-internal
     date: "2026-04-23"
     featured: false
     internal_note: "WIP - not yet published. Tracker: _tracker/d365fo-mcp-onboarding-kit.html"
