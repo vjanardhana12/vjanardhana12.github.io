@@ -35,7 +35,7 @@ assets:
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
     description: >
-      One-click sync of the 5 D365 F&O NuGet packages from LCS Shared Asset
+      One-click sync of the core D365 F&O NuGet package set (currently 5) from LCS Shared Asset
       Library to your Azure DevOps Artifacts feed. Smart compare (skips what's
       already in the feed), parallel uploads, single 56 KB EXE, no install.
     tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
