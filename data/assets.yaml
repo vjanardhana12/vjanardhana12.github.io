@@ -37,12 +37,12 @@ assets:
     description: >
       One-click sync of the core D365 F&O NuGet package set (currently 5) from LCS Shared Asset
       Library to your Azure DevOps Artifacts feed. Smart compare (skips what's
-      already in the feed), parallel uploads, single 56 KB EXE, no install.
+      already in the feed), parallel uploads, single 56 KB EXE, no install. Auto-updates from GitHub — always stay current.
     tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
     visibility: public
     url: "https://github.com/vjanardhana12/d365fo-nuget-sync"
     repo: "vjanardhana12/d365fo-nuget-sync"
     download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
-    version: "1.0.0"
-    date: 2026-04-24
+    version: "1.0.1"
+    date: 2026-04-26
     featured: true
