@@ -1,6 +1,6 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "single" }}
-  <article>
+  <article class="proj-detail">
     {{/* Back to home button */}}
     <div style="margin-bottom:1.25rem;">
       <a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;font-weight:500;padding:0.5rem 1rem;border-radius:10px;border:1px solid #22d3ee;color:#22d3ee;background:rgba(34,211,238,0.08);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(34,211,238,0.18)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(34,211,238,0.08)';this.style.transform='translateX(0)';">
@@ -10,7 +10,7 @@
     </div>
 
     {{/* Header */}}
-    <header id="single_header" class="mt-2 max-w-prose">
+    <header id="single_header" class="mt-2">
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         {{ .Title | emojify }}
       </h1>
@@ -20,12 +20,37 @@
     </header>
 
     {{/* Body */}}
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      <div class="min-w-0 min-h-0 max-w-fit">
-        <div class="article-content max-w-prose mb-20">
-          {{ .Content }}
-        </div>
+    <section class="mt-0 prose dark:prose-invert proj-body">
+      <div class="article-content mb-20">
+        {{ .Content }}
       </div>
     </section>
   </article>
+
+  <style>
+    /* Project detail: use full available width like the home page */
+    .proj-detail {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    .proj-body,
+    .proj-detail .article-content,
+    .proj-detail #single_header {
+      max-width: 100% !important;
+    }
+    /* Keep prose readable: cap copy column on very wide screens */
+    .proj-detail .article-content > p,
+    .proj-detail .article-content > ul,
+    .proj-detail .article-content > ol,
+    .proj-detail .article-content > blockquote {
+      max-width: 75ch;
+    }
+    /* But let code blocks, tables, images use full width */
+    .proj-detail .article-content > pre,
+    .proj-detail .article-content > table,
+    .proj-detail .article-content > figure,
+    .proj-detail .article-content > .highlight {
+      max-width: 100%;
+    }
+  </style>
 {{ end }}
