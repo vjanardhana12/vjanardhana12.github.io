@@ -28,6 +28,18 @@
   </article>
 
   <style>
+    /* Match home page: expand body beyond max-w-7xl, reduce huge side padding */
+    body {
+      max-width: 100% !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+    @media (min-width: 1024px) {
+      body {
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+      }
+    }
     /* Theme wraps every page in <main class="max-w-3xl"> (~768px).
        Override for project detail pages so we use the full container. */
     main {
