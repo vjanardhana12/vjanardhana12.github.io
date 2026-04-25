@@ -52,7 +52,7 @@ The semi-automated approach (script → opens LCS → you click download → scr
 - **Source:** [github.com/vjanardhana12/d365fo-nuget-sync](https://github.com/vjanardhana12/d365fo-nuget-sync)
 - **License:** MIT
 
-A single 54 KB `.exe`. Double-click it. Enter your ADO feed URL and email once (saved per-user to `%LOCALAPPDATA%`). Generate a PAT with **Packaging (Read & Write)** scope. Done.
+A single 56 KB `.exe`. Double-click it. Enter your ADO feed URL and email once (saved per-user to `%LOCALAPPDATA%`). Generate a PAT with **Packaging (Read & Write)** scope. Done.
 
 ## What's in the box
 
@@ -62,7 +62,7 @@ A single 54 KB `.exe`. Double-click it. Enter your ADO feed URL and email once (
 | **Parallel uploads** | Up to 3 concurrent (use `-MaxParallel <N>` to tune) |
 | **Per-user config** | Feed URL/email saved, PAT never written to disk |
 | **Self-update check** | Silently checks GitHub on startup, tells you if there's a newer version |
-| **PowerShell 5.1 + 7+** | Works on any modern Windows |
+| **Self-contained EXE** | No PowerShell modules, no NuGet CLI install, no AAD app — just the binary |
 | **No LCS API / AAD app** | Browser-based asset library access, no service principal needed |
 
 ## Why open source?
