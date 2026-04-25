@@ -1,6 +1,7 @@
 assets:
   - title: "D365 F&O MCP Onboarding Kit"
     type: tool
+    slug: "/projects/d365fo-mcp-onboarding-kit/"
     description: >
       Self-service kit to onboard D365 F&O developers to MCP. Includes a
       DevLead wizard, TFC and FC PowerShell setups, and a generic project-init
@@ -12,12 +13,13 @@ assets:
       - AI-ERP
       - Onboarding
     visibility: ms-internal
+    repo: "mcaps-microsoft/D365FO-MCP-Onboarding"
     date: "2026-04-23"
     featured: false
-    internal_note: "WIP - not yet published. Tracker: _tracker/d365fo-mcp-onboarding-kit.html"
 
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
+    slug: "/projects/d365fo-nuget-sync/"
     description: >
       One-click sync of the core D365 F&O NuGet package set from LCS Shared
       Asset Library to Azure DevOps Artifacts. Smart compare skips existing
