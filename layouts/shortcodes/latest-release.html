@@ -35,7 +35,7 @@
     <div class="hp-release-title">{{ .title }}{{ with .version }} <span class="hp-release-ver">v{{ . }}</span>{{ end }}</div>
     <div class="hp-release-desc">{{ .description }}</div>
     <div class="hp-release-meta">
-      {{- with .date }}<span class="hp-release-meta-item">📅 {{ dateFormat "Jan 2, 2026" . }}</span>{{ end -}}
+      {{- with .date }}<span class="hp-release-meta-item">📅 {{ dateFormat "Jan 2, 2006" . }}</span>{{ end -}}
       {{- with $visBadge }}<span class="hp-release-meta-item">{{ . }}</span>{{ end -}}
       {{- with .tags }}{{- range first 4 . }}<span class="hp-release-tag">#{{ . }}</span>{{ end }}{{ end -}}
     </div>
