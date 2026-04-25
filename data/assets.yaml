@@ -1,48 +1,38 @@
-﻿# =============================================================================
-# Assets manifest — single source of truth for everything published.
-#
-# Every entry shows up as a card on the matching section page (Tools/Guides/
-# Videos/Snippets) AND on the homepage if `featured: true`.
-#
-# Add a new asset = append a new block here, push to GitHub. Done.
-#
-# Required fields:  title, type, description, visibility
-# Optional fields:  tags, url, repo, video, doc, version, date, featured, internal_note
-#
-# type        : tool | guide | video | snippet
-# visibility  : public | ms-internal | private
-# url         : main link visitors should click (any URL)
-# repo        : github repo (used to auto-fetch latest release)
-# video       : youtube or vimeo URL (auto-embeds in card if type=video)
-# featured    : true to surface on the homepage "Featured" strip
-# =============================================================================
-
 assets:
-
   - title: "D365 F&O MCP Onboarding Kit"
     type: tool
     description: >
-      Self-service kit to onboard D365 F&O developers to MCP — includes a
+      Self-service kit to onboard D365 F&O developers to MCP. Includes a
       DevLead wizard, TFC and FC PowerShell setups, and a generic project-init
       flow. Works against any tenant/environment.
-      
-    tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
+    tags:
+      - D365FO
+      - MCP
+      - PowerShell
+      - AI-ERP
+      - Onboarding
     visibility: private
-    date: 2026-04-23
+    date: "2026-04-23"
     featured: false
-    internal_note: "WIP — not yet published. Will go to mcaps-microsoft when ready. Tracker: _tracker/d365fo-mcp-onboarding-kit.html"
+    internal_note: "WIP - not yet published. Tracker: _tracker/d365fo-mcp-onboarding-kit.html"
 
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
     description: >
-      One-click sync of the core D365 F&O NuGet package set (currently 5) from LCS Shared Asset
-      Library to your Azure DevOps Artifacts feed. Smart compare (skips what's
-      already in the feed), parallel uploads, single 56 KB EXE, no install. Auto-updates from GitHub — always stay current.
-    tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
+      One-click sync of the core D365 F&O NuGet package set from LCS Shared
+      Asset Library to Azure DevOps Artifacts. Smart compare skips existing
+      packages, runs parallel uploads, and ships as a single EXE with auto-update.
+    tags:
+      - D365FO
+      - PowerShell
+      - ALM
+      - DevOps
+      - NuGet
+      - Azure-DevOps
     visibility: public
     url: "https://github.com/vjanardhana12/d365fo-nuget-sync"
     repo: "vjanardhana12/d365fo-nuget-sync"
     download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
     version: "1.0.1"
-    date: 2026-04-26
+    date: "2026-04-26"
     featured: true
