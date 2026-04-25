@@ -12,6 +12,20 @@ If you've set up a D365 F&O build pipeline, you know the drill. Microsoft drops 
 
 I got tired of that, so I built a small tool.
 
+## Before / after
+
+![From a 7-step manual chore to one double-click](/img/blog/d365fo-nuget-sync/slide-02-before-after.png)
+
+| | Before (manual) | After (this tool) |
+|---|---|---|
+| **Time per sync** | ~30 min | ~30 sec |
+| **Steps** | 7 manual | 1 double-click |
+| **CLI invocations** | 5 (one per package) | 0 |
+| **Modules to install** | `d365fo.tools` + `nuget.exe` | None |
+| **Pre-check for duplicates** | None — fails after a long upload | Reads feed first, skips what exists |
+| **Parallel pushes** | No | Up to 3 |
+| **PAT storage** | Often pasted into shell history | SecureString prompt, never written to disk |
+
 ## What it does
 
 **One click. Compare. Push only what's needed.**
