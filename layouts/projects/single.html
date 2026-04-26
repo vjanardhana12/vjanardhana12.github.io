@@ -131,7 +131,28 @@
       margin-top: 0;
       align-items: start;
     }
+    /* Laptop (≥1024px): 2-col → info-left + content; aside stacks under content */
     @media (min-width: 1024px) {
+      .proj-grid {
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 2.5rem 3rem;
+      }
+      .proj-aside {
+        grid-column: 2;
+      }
+    }
+    /* Wide monitor (≥1280px): full 3-col */
+    @media (min-width: 1280px) {
+      .proj-grid {
+        grid-template-columns: 280px minmax(0, 1fr) 220px;
+        gap: 3rem 3.5rem;
+      }
+      .proj-aside {
+        grid-column: auto;
+      }
+    }
+    /* Ultra-wide (≥1536px): more breathing room */
+    @media (min-width: 1536px) {
       .proj-grid {
         grid-template-columns: 300px minmax(0, 1fr) 240px;
         gap: 4rem 4.5rem;
