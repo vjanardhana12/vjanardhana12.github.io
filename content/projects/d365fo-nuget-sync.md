@@ -3,16 +3,13 @@ title: "D365 F&O NuGet Sync Tool"
 description: "One-click sync of D365 F&O NuGet packages from LCS Shared Asset Library to Azure DevOps Artifacts."
 date: 2026-04-25
 tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
+download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
+repo: "https://github.com/vjanardhana12/d365fo-nuget-sync"
+version: "1.0.1"
 showReadingTime: false
 showWordCount: false
 showAuthor: false
 ---
-
-{{< tool-actions
-  download="https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
-  repo="https://github.com/vjanardhana12/d365fo-nuget-sync"
-  version="1.0.1"
->}}
 
 ## What it does
 

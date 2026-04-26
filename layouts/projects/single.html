@@ -2,57 +2,54 @@
   {{ .Scratch.Set "scope" "single" }}
 
   <div class="proj-grid">
-    <article class="proj-detail">
-      {{/* Back to home button */}}
-      <div style="margin-bottom:1.25rem;">
-        <a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;font-weight:500;padding:0.5rem 1rem;border-radius:10px;border:1px solid #22d3ee;color:#22d3ee;background:rgba(34,211,238,0.08);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(34,211,238,0.18)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(34,211,238,0.08)';this.style.transform='translateX(0)';">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.4 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/></svg>
-          Back to home
-        </a>
+    {{/* ─── LEFT: Sticky info column (title, meta, download, tags, TOC) ─── */}}
+    <aside class="proj-info">
+      <a href="/" class="proj-back" title="Back to home">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.4 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/></svg>
+        Back to home
+      </a>
+
+      <h1 class="proj-title">{{ .Title | emojify }}</h1>
+
+      {{- with .Description }}
+      <p class="proj-lead">{{ . }}</p>
+      {{- end }}
+
+      <div class="proj-meta">
+        <span class="proj-meta-item">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm12 6v12H5V8h14z"/></svg>
+          {{ .Date.Format "Jan 2, 2006" }}
+        </span>
+        {{- with .Params.version }}
+        <span class="proj-meta-item proj-version">v{{ . }}</span>
+        {{- end }}
+        {{- if eq .Params.visibility "ms-internal" }}
+        <span class="proj-meta-item proj-internal">Microsoft</span>
+        {{- end }}
       </div>
 
-      {{/* Header */}}
-      <header id="single_header" class="mt-2">
-        <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-          {{ .Title | emojify }}
-        </h1>
-        {{- with .Description }}
-        <p class="proj-lead">{{ . }}</p>
+      {{/* Action buttons */}}
+      {{- if or .Params.download .Params.repo }}
+      <div class="proj-actions">
+        {{- with .Params.download }}
+        <a href="{{ . }}" class="proj-btn proj-btn-primary">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 3a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42L11 14.6V4a1 1 0 0 1 1-1Zm-7 16a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z"/></svg>
+          Download
+        </a>
         {{- end }}
-        <div class="proj-meta">
-          <span class="proj-meta-item">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm12 6v12H5V8h14z"/></svg>
-            {{ .Date.Format "Jan 2, 2006" }}
-          </span>
-          {{- with .Params.tags }}
-          <span class="proj-meta-item">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M21.41 11.58 12.41 2.58A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>
-            {{ delimit . " · " }}
-          </span>
-          {{- end }}
-        </div>
-      </header>
-
-      {{/* Body */}}
-      <section class="mt-0 prose dark:prose-invert proj-body">
-        <div class="article-content mb-20">
-          {{ .Content }}
-        </div>
-      </section>
-    </article>
-
-    {{/* Right sidebar - On this page + tags */}}
-    <aside class="proj-aside">
-      {{- if (in .TableOfContents "<ul") }}
-      <div class="proj-card">
-        <div class="proj-card-title">📖 On this page</div>
-        <div class="proj-toc">{{ .TableOfContents }}</div>
+        {{- with .Params.repo }}
+        <a href="{{ . }}" target="_blank" rel="noopener" class="proj-btn proj-btn-outline">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          GitHub
+        </a>
+        {{- end }}
       </div>
       {{- end }}
 
+      {{/* Tags */}}
       {{- with .Params.tags }}
-      <div class="proj-card">
-        <div class="proj-card-title">🏷️ Tags</div>
+      <div class="proj-section">
+        <div class="proj-section-title">Tags</div>
         <div class="proj-tags">
           {{- range . }}
           <a href="/tags/{{ . | urlize }}/" class="proj-tag">{{ . }}</a>
@@ -61,12 +58,23 @@
       </div>
       {{- end }}
 
-      <div class="proj-card">
-        <div class="proj-card-title">🧭 More</div>
-        <a href="/projects/" class="proj-more-link">All Tools &amp; Kits →</a>
-        <a href="/" class="proj-more-link">Home →</a>
+      {{/* TOC */}}
+      {{- if (in .TableOfContents "<ul") }}
+      <div class="proj-section">
+        <div class="proj-section-title">On this page</div>
+        <div class="proj-toc">{{ .TableOfContents }}</div>
       </div>
+      {{- end }}
     </aside>
+
+    {{/* ─── RIGHT: Full content ─── */}}
+    <article class="proj-detail">
+      <section class="proj-body prose dark:prose-invert">
+        <div class="article-content">
+          {{ .Content }}
+        </div>
+      </section>
+    </article>
   </div>
 
   <style>
@@ -75,109 +83,183 @@
     @media (min-width: 1024px) { body { padding-left: 3rem !important; padding-right: 3rem !important; } }
     main { max-width: 100% !important; }
 
-    /* 2-col layout: main content + sticky right sidebar */
+    /* 2-col layout: sticky info column (left) + full-width content (right) */
     .proj-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
       width: 100%;
       max-width: 100%;
+      margin-top: 1rem;
     }
     @media (min-width: 1024px) {
       .proj-grid {
-        grid-template-columns: minmax(0, 1fr) 280px;
-        gap: 2.5rem;
+        grid-template-columns: 340px minmax(0, 1fr);
+        gap: 3rem;
       }
     }
 
-    .proj-detail, .proj-body, .proj-detail .article-content, .proj-detail #single_header {
-      max-width: 100% !important;
-      width: 100% !important;
-    }
-    .proj-detail .article-content > * { max-width: 100% !important; }
-
-    /* Tailwind .prose caps everything at ~65ch — kill that */
-    .proj-detail .prose,
-    .proj-detail .prose * {
-      max-width: none !important;
-    }
-    /* But keep paragraphs/lists readable on huge screens */
-    .proj-detail .article-content p,
-    .proj-detail .article-content ul,
-    .proj-detail .article-content ol,
-    .proj-detail .article-content blockquote {
-      max-width: 90ch !important;
-    }
-
-    /* Lead description below title */
-    .proj-lead {
-      font-size: 1.05rem;
-      line-height: 1.55;
-      color: var(--color-neutral-600);
-      margin: 0.75rem 0 0.85rem;
-      max-width: 75ch;
-    }
-    .dark .proj-lead { color: var(--color-neutral-300); }
-
-    /* Clean meta line (no broken empty icons) */
-    .proj-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--color-neutral-500);
-    }
-    .dark .proj-meta { color: var(--color-neutral-400); }
-    .proj-meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .proj-meta-item svg { opacity: 0.7; }
-
-    /* Sticky right sidebar */
-    .proj-aside {
+    /* LEFT info column */
+    .proj-info {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
     @media (min-width: 1024px) {
-      .proj-aside {
+      .proj-info {
         position: sticky;
         top: 6rem;
         align-self: start;
         max-height: calc(100vh - 7rem);
         overflow-y: auto;
+        padding-right: 0.5rem;
       }
     }
-    .proj-card {
-      padding: 1rem 1.1rem;
-      border-radius: 14px;
-      border: 1px solid var(--color-neutral-200);
-      background: var(--color-neutral-50);
+    .proj-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      align-self: flex-start;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #22d3ee;
+      color: #22d3ee;
+      background: rgba(34,211,238,0.08);
+      text-decoration: none;
+      transition: all 0.15s;
     }
-    .dark .proj-card {
-      border-color: var(--color-neutral-700);
-      background: var(--color-neutral-800);
+    .proj-back:hover {
+      background: rgba(34,211,238,0.18);
+      transform: translateX(-2px);
     }
-    .proj-card-title {
+    .proj-title {
+      font-size: 1.85rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 0.5rem 0 0;
+      color: var(--color-neutral-900);
+    }
+    .dark .proj-title { color: #ffffff; }
+    .proj-lead {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--color-neutral-600);
+      margin: 0;
+    }
+    .dark .proj-lead { color: var(--color-neutral-300); }
+    .proj-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--color-neutral-500);
+    }
+    .proj-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .proj-version {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(34,211,238,0.1);
+      color: #22d3ee;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .proj-internal {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(168,85,247,0.12);
+      color: #c084fc;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Action buttons */
+    .proj-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.85rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0d6e7d 0%, #134e5e 55%, #0d1b22 100%);
+      border: 1px solid rgba(34,211,238,0.25);
+    }
+    .proj-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .proj-btn-primary {
+      background: #22d3ee;
+      color: #0d1b22;
+    }
+    .proj-btn-primary:hover { background: #67e8f9; transform: translateY(-1px); }
+    .proj-btn-outline {
+      background: transparent;
+      color: #22d3ee;
+      border: 1px solid rgba(34,211,238,0.4);
+    }
+    .proj-btn-outline:hover { background: rgba(34,211,238,0.1); }
+
+    /* Section blocks */
+    .proj-section {
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--color-neutral-200);
+    }
+    .dark .proj-section { border-top-color: var(--color-neutral-700); }
+    .proj-section-title {
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 0.7rem;
+      opacity: 0.6;
+      margin-bottom: 0.6rem;
     }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .proj-tag {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background: rgba(34,211,238,0.08);
+      color: #22d3ee;
+      border: 1px solid rgba(34,211,238,0.25);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .proj-tag:hover {
+      background: rgba(34,211,238,0.18);
+      transform: translateY(-1px);
+    }
+
+    /* TOC */
     .proj-toc ul {
       list-style: none;
       padding: 0;
       margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
     .proj-toc ul ul { padding-left: 0.85rem; margin-top: 2px; }
-    .proj-toc li { margin: 0.2rem 0; }
+    .proj-toc li { margin: 0.15rem 0; }
     .proj-toc a {
       color: var(--color-neutral-600);
       text-decoration: none;
@@ -189,39 +271,24 @@
     }
     .dark .proj-toc a { color: var(--color-neutral-300); }
     .proj-toc a:hover {
-      background: rgba(34, 211, 238, 0.1);
+      background: rgba(34,211,238,0.1);
       color: #22d3ee;
     }
-    .proj-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
+
+    /* RIGHT content column */
+    .proj-detail {
+      max-width: 100% !important;
+      width: 100% !important;
     }
-    .proj-tag {
-      display: inline-block;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      background: rgba(34, 211, 238, 0.08);
-      color: #22d3ee;
-      border: 1px solid rgba(34, 211, 238, 0.25);
-      text-decoration: none;
-      transition: all 0.15s;
+    .proj-detail .prose,
+    .proj-detail .prose * { max-width: none !important; }
+    .proj-detail .article-content p,
+    .proj-detail .article-content ul,
+    .proj-detail .article-content ol,
+    .proj-detail .article-content blockquote {
+      max-width: 90ch !important;
     }
-    .proj-tag:hover {
-      background: rgba(34, 211, 238, 0.18);
-      transform: translateY(-1px);
-    }
-    .proj-more-link {
-      display: block;
-      padding: 0.4rem 0.5rem;
-      font-size: 0.85rem;
-      color: #22d3ee;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.15s;
-    }
-    .proj-more-link:hover { background: rgba(34, 211, 238, 0.1); }
+    /* First heading in body shouldn't have huge top margin */
+    .proj-detail .article-content > :first-child { margin-top: 0 !important; }
   </style>
 {{ end }}
