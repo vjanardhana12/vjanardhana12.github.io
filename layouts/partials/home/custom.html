@@ -110,6 +110,7 @@
     {{- $publicTools := where $tools "visibility" "public" -}}
     {{- $msTools := where $tools "visibility" "ms-internal" -}}
     {{- $guides := where $assets "type" "guide" -}}
+    {{- if ge (len $tools) 5 }}
     <div class="hp-stats">
       <div class="hp-stats-title">By the numbers</div>
       <div class="hp-stats-grid">
@@ -131,6 +132,7 @@
         </div>
       </div>
     </div>
+    {{- end }}
 
     {{/* ─── Browse by topic (tag cloud from data/assets.yaml) ─── */}}
     {{- $allTags := slice -}}
@@ -619,4 +621,13 @@
     background: rgba(14,116,144,0.18);
     border-color: rgba(14,116,144,0.5);
   }
+
+  /* ─── Asset card hover ─── */
+  .asset-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(34, 211, 238, 0.5) !important;
+    box-shadow: 0 6px 20px rgba(34, 211, 238, 0.12);
+  }
+  .asset-card h3 { transition: color 0.15s; }
+  .asset-card:hover h3 { color: #67e8f9; }
 </style>
