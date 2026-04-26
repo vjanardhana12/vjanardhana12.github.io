@@ -34,7 +34,9 @@
         <span class="proj-meta-item proj-version">v{{ . }}</span>
         {{- end }}
         {{- if eq .Params.visibility "ms-internal" }}
-        <span class="proj-meta-item proj-internal">Microsoft</span>
+        <span class="proj-meta-item proj-internal" title="Microsoft-internal — published under mcaps-microsoft">Microsoft</span>
+        {{- else }}
+        <span class="proj-meta-item proj-public" title="Open source / public">Public</span>
         {{- end }}
       </div>
 
@@ -212,6 +214,18 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
+    .proj-public {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      color: #4ade80;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    html:not(.dark) .proj-public { color: #15803d; background: rgba(21,128,61,0.1); }
+    html:not(.dark) .proj-internal { color: #7e22ce; background: rgba(126,34,206,0.1); }
     .proj-actions {
       display: flex;
       flex-direction: column;

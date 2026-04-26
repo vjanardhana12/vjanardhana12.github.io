@@ -6,6 +6,7 @@ tags: [D365FO, PowerShell, ALM, DevOps, NuGet, Azure-DevOps]
 download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
 repo: "https://github.com/vjanardhana12/d365fo-nuget-sync"
 version: "1.0.1"
+visibility: "public"
 showReadingTime: false
 showWordCount: false
 showAuthor: false

@@ -4,6 +4,7 @@ description: "Self-service kit to onboard D365 F&O developers to MCP. DevLead wi
 date: 2026-04-23
 tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
 repo: "https://github.com/mcaps-microsoft/D365FO-MCP-Onboarding"
+version: "1.0.0"
 visibility: "ms-internal"
 showReadingTime: false
 showWordCount: false
