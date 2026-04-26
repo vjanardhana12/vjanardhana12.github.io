@@ -379,6 +379,22 @@
       border-color: rgba(34,211,238,0.4);
       transform: translateY(-1px);
     }
+
+    /* Light theme polish: darker cyan for AA contrast on white */
+    html:not(.dark) .proj-back,
+    html:not(.dark) .proj-version,
+    html:not(.dark) .proj-btn-outline,
+    html:not(.dark) .proj-toc a:hover,
+    html:not(.dark) .proj-share-btn:hover {
+      color: #0e7490;
+    }
+    html:not(.dark) .proj-back { border-color: #0e7490; background: rgba(14,116,144,0.06); }
+    html:not(.dark) .proj-back:hover { background: rgba(14,116,144,0.12); }
+    html:not(.dark) .proj-version { background: rgba(14,116,144,0.1); }
+    html:not(.dark) .proj-btn-outline { border-color: rgba(14,116,144,0.5); }
+    html:not(.dark) .proj-btn-outline:hover { background: rgba(14,116,144,0.08); }
+    html:not(.dark) .proj-toc a:hover,
+    html:not(.dark) .proj-share-btn:hover { background: rgba(14,116,144,0.1); border-color: rgba(14,116,144,0.4); }
   </style>
 
   <script>
