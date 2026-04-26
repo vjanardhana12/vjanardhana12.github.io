@@ -175,9 +175,13 @@
       line-height: 1.15;
       font-weight: 800;
       margin: 0.25rem 0 0;
+      padding-bottom: 0.6rem;
       color: var(--color-neutral-900);
+      border-bottom: 2px solid #22d3ee;
+      display: inline-block;
     }
     .dark .proj-title { color: #ffffff; }
+    html:not(.dark) .proj-title { border-bottom-color: #0e7490; }
     .proj-lead {
       font-size: 0.95rem;
       line-height: 1.55;
