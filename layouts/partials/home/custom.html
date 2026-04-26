@@ -12,21 +12,6 @@
 
   <!-- ─── LEFT: Category sidebar ─── -->
   <aside class="hp-sidebar">
-    <!-- Brand block (aligns with hero kicker line on the right) -->
-    <a href="/" class="hp-brand" title="Home">
-      <span class="hp-brand-mark">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0a1628" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 6 L3 12 L8 18"/>
-          <path d="M16 6 L21 12 L16 18"/>
-          <path d="M14 4 L10 20"/>
-        </svg>
-      </span>
-      <span class="hp-brand-text">
-        <span class="hp-brand-name">vjanardhana12</span>
-        <span class="hp-brand-sub">notes from the field</span>
-      </span>
-    </a>
-
     <nav class="hp-nav">
       <div class="hp-nav-title">Browse</div>
       <a href="/projects/" class="hp-nav-item">
@@ -297,51 +282,6 @@
   /* ─── CENTER: Main content ─── */
   .hp-main {
     min-width: 0;
-  }
-
-  /* ─── Brand block (top of left sidebar, aligns with hero kicker) ─── */
-  .hp-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.5rem 0.6rem;
-    margin-bottom: 1.25rem;
-    border-radius: 12px;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.15s;
-  }
-  .hp-brand:hover {
-    background: rgba(34, 211, 238, 0.08);
-  }
-  .hp-brand-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%);
-    box-shadow: 0 2px 10px rgba(34, 211, 238, 0.35);
-    flex-shrink: 0;
-  }
-  .hp-brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-    min-width: 0;
-  }
-  .hp-brand-name {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--color-neutral-900);
-  }
-  .dark .hp-brand-name { color: #ffffff; }
-  .hp-brand-sub {
-    font-size: 0.68rem;
-    opacity: 0.6;
-    font-weight: 500;
-    letter-spacing: 0.04em;
   }
 
   /* ─── Hero band (fills the empty space above the latest-release card) ─── */

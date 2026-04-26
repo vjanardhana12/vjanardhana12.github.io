@@ -16,8 +16,20 @@
         <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
           {{ .Title | emojify }}
         </h1>
-        <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-          {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+        {{- with .Description }}
+        <p class="proj-lead">{{ . }}</p>
+        {{- end }}
+        <div class="proj-meta">
+          <span class="proj-meta-item">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm12 6v12H5V8h14z"/></svg>
+            {{ .Date.Format "Jan 2, 2006" }}
+          </span>
+          {{- with .Params.tags }}
+          <span class="proj-meta-item">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M21.41 11.58 12.41 2.58A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>
+            {{ delimit . " · " }}
+          </span>
+          {{- end }}
         </div>
       </header>
 
@@ -83,6 +95,34 @@
       width: 100% !important;
     }
     .proj-detail .article-content > * { max-width: 100% !important; }
+
+    /* Lead description below title */
+    .proj-lead {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--color-neutral-600);
+      margin: 0.75rem 0 0.85rem;
+      max-width: 75ch;
+    }
+    .dark .proj-lead { color: var(--color-neutral-300); }
+
+    /* Clean meta line (no broken empty icons) */
+    .proj-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--color-neutral-500);
+    }
+    .dark .proj-meta { color: var(--color-neutral-400); }
+    .proj-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .proj-meta-item svg { opacity: 0.7; }
 
     /* Sticky right sidebar */
     .proj-aside {
