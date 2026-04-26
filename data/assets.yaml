@@ -14,6 +14,7 @@ assets:
       - Onboarding
     visibility: ms-internal
     repo: "mcaps-microsoft/D365FO-MCP-Onboarding"
+    version: "1.0.0"
     date: "2026-04-23"
     featured: false
 

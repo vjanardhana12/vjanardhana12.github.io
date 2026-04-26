@@ -11,6 +11,6 @@ description: "Notes, tools and tutorials on D365FO, AI, and whatever's next."
 
 ---
 
-## All Releases
+## More Releases
 
-{{< asset-gallery >}}
+{{< asset-gallery featured="false" >}}

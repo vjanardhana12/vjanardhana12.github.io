@@ -11,6 +11,9 @@
   {{- if and (eq $featured "true") (not .featured) -}}
     {{- $keep = false -}}
   {{- end -}}
+  {{- if and (eq $featured "false") .featured -}}
+    {{- $keep = false -}}
+  {{- end -}}
   {{- if and $tag (not (in (.tags | default slice) $tag)) -}}
     {{- $keep = false -}}
   {{- end -}}
