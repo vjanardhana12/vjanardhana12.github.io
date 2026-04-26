@@ -99,7 +99,7 @@
     @media (min-width: 1024px) {
       .proj-grid {
         grid-template-columns: 300px minmax(0, 1fr) 240px;
-        gap: 2.5rem;
+        gap: 4rem 4.5rem;
       }
     }
 
@@ -227,16 +227,16 @@
     }
     /* First heading: align baseline with title in left column.
        Back button (~2rem) + title margin-top (~0.25rem) -> push first
-       heading down ~2.5rem so it lines up with the title row */
+       heading down ~3.5rem so it lines up with the title row */
     .proj-detail .article-content > :first-child {
-      margin-top: 2.5rem !important;
+      margin-top: 3.5rem !important;
     }
     .proj-detail .article-content h2 {
       font-size: 1.55rem;
       margin-top: 1.75rem;
       margin-bottom: 0.85rem;
     }
-    .proj-detail .article-content h2:first-child { margin-top: 2.5rem; }
+    .proj-detail .article-content h2:first-child { margin-top: 3.5rem; }
 
     /* RIGHT aside - sticky */
     .proj-aside {
@@ -251,7 +251,7 @@
         align-self: start;
         max-height: calc(100vh - 6rem);
         overflow-y: auto;
-        margin-top: 2.5rem; /* align with first heading row */
+        margin-top: 3.5rem; /* align with first heading row */
       }
     }
     .proj-card {
