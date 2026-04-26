@@ -1,63 +1,174 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "single" }}
-  <article class="proj-detail">
-    {{/* Back to home button */}}
-    <div style="margin-bottom:1.25rem;">
-      <a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;font-weight:500;padding:0.5rem 1rem;border-radius:10px;border:1px solid #22d3ee;color:#22d3ee;background:rgba(34,211,238,0.08);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(34,211,238,0.18)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(34,211,238,0.08)';this.style.transform='translateX(0)';">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.4 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/></svg>
-        Back to home
-      </a>
-    </div>
 
-    {{/* Header */}}
-    <header id="single_header" class="mt-2">
-      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        {{ .Title | emojify }}
-      </h1>
-      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+  <div class="proj-grid">
+    <article class="proj-detail">
+      {{/* Back to home button */}}
+      <div style="margin-bottom:1.25rem;">
+        <a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9rem;font-weight:500;padding:0.5rem 1rem;border-radius:10px;border:1px solid #22d3ee;color:#22d3ee;background:rgba(34,211,238,0.08);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='rgba(34,211,238,0.18)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(34,211,238,0.08)';this.style.transform='translateX(0)';">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.4 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0Z"/></svg>
+          Back to home
+        </a>
       </div>
-    </header>
 
-    {{/* Body */}}
-    <section class="mt-0 prose dark:prose-invert proj-body">
-      <div class="article-content mb-20">
-        {{ .Content }}
+      {{/* Header */}}
+      <header id="single_header" class="mt-2">
+        <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+          {{ .Title | emojify }}
+        </h1>
+        <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+        </div>
+      </header>
+
+      {{/* Body */}}
+      <section class="mt-0 prose dark:prose-invert proj-body">
+        <div class="article-content mb-20">
+          {{ .Content }}
+        </div>
+      </section>
+    </article>
+
+    {{/* Right sidebar - On this page + tags */}}
+    <aside class="proj-aside">
+      {{- if (in .TableOfContents "<ul") }}
+      <div class="proj-card">
+        <div class="proj-card-title">📖 On this page</div>
+        <div class="proj-toc">{{ .TableOfContents }}</div>
       </div>
-    </section>
-  </article>
+      {{- end }}
+
+      {{- with .Params.tags }}
+      <div class="proj-card">
+        <div class="proj-card-title">🏷️ Tags</div>
+        <div class="proj-tags">
+          {{- range . }}
+          <a href="/tags/{{ . | urlize }}/" class="proj-tag">{{ . }}</a>
+          {{- end }}
+        </div>
+      </div>
+      {{- end }}
+
+      <div class="proj-card">
+        <div class="proj-card-title">🧭 More</div>
+        <a href="/projects/" class="proj-more-link">All Tools &amp; Kits →</a>
+        <a href="/" class="proj-more-link">Home →</a>
+      </div>
+    </aside>
+  </div>
 
   <style>
-    /* Match home page: expand body beyond max-w-7xl, reduce huge side padding */
-    body {
-      max-width: 100% !important;
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
+    /* Body & main width overrides */
+    body { max-width: 100% !important; padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    @media (min-width: 1024px) { body { padding-left: 3rem !important; padding-right: 3rem !important; } }
+    main { max-width: 100% !important; }
+
+    /* 2-col layout: main content + sticky right sidebar */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      width: 100%;
+      max-width: 100%;
     }
     @media (min-width: 1024px) {
-      body {
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
+      .proj-grid {
+        grid-template-columns: minmax(0, 1fr) 280px;
+        gap: 2.5rem;
       }
     }
-    /* Theme wraps every page in <main class="max-w-3xl"> (~768px).
-       Override for project detail pages so we use the full container. */
-    main {
-      max-width: 100% !important;
-    }
-    /* Project detail: use full available width like the home page */
-    .proj-detail {
+
+    .proj-detail, .proj-body, .proj-detail .article-content, .proj-detail #single_header {
       max-width: 100% !important;
       width: 100% !important;
     }
-    .proj-body,
-    .proj-detail .article-content,
-    .proj-detail #single_header {
-      max-width: 100% !important;
+    .proj-detail .article-content > * { max-width: 100% !important; }
+
+    /* Sticky right sidebar */
+    .proj-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    /* Use full width — no readability cap (matches home page feel) */
-    .proj-detail .article-content > * {
-      max-width: 100% !important;
+    @media (min-width: 1024px) {
+      .proj-aside {
+        position: sticky;
+        top: 6rem;
+        align-self: start;
+        max-height: calc(100vh - 7rem);
+        overflow-y: auto;
+      }
     }
+    .proj-card {
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      border: 1px solid var(--color-neutral-200);
+      background: var(--color-neutral-50);
+    }
+    .dark .proj-card {
+      border-color: var(--color-neutral-700);
+      background: var(--color-neutral-800);
+    }
+    .proj-card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.7rem;
+    }
+    .proj-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+    }
+    .proj-toc ul ul { padding-left: 0.85rem; margin-top: 2px; }
+    .proj-toc li { margin: 0.2rem 0; }
+    .proj-toc a {
+      color: var(--color-neutral-600);
+      text-decoration: none;
+      display: block;
+      padding: 0.2rem 0.4rem;
+      border-radius: 6px;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+    .dark .proj-toc a { color: var(--color-neutral-300); }
+    .proj-toc a:hover {
+      background: rgba(34, 211, 238, 0.1);
+      color: #22d3ee;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .proj-tag {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(34, 211, 238, 0.08);
+      color: #22d3ee;
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .proj-tag:hover {
+      background: rgba(34, 211, 238, 0.18);
+      transform: translateY(-1px);
+    }
+    .proj-more-link {
+      display: block;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.85rem;
+      color: #22d3ee;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .proj-more-link:hover { background: rgba(34, 211, 238, 0.1); }
   </style>
 {{ end }}
