@@ -24,5 +24,17 @@
 </div>
 
 <style>
+  /* Align header wrapper with body content (remove huge px-32 indent) */
+  .fixed.inset-x-0.z-100 > div:last-child {
+    max-width: 100% !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  @media (min-width: 1024px) {
+    .fixed.inset-x-0.z-100 > div:last-child {
+      padding-left: 3rem !important;
+      padding-right: 3rem !important;
+    }
+  }
   .dark .logo-mark { box-shadow: 0 2px 12px rgba(34,211,238,0.45); }
 </style>
