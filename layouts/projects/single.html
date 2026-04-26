@@ -55,19 +55,9 @@
     .proj-detail #single_header {
       max-width: 100% !important;
     }
-    /* Keep prose readable: cap copy column on very wide screens */
-    .proj-detail .article-content > p,
-    .proj-detail .article-content > ul,
-    .proj-detail .article-content > ol,
-    .proj-detail .article-content > blockquote {
-      max-width: 75ch;
-    }
-    /* But let code blocks, tables, images use full width */
-    .proj-detail .article-content > pre,
-    .proj-detail .article-content > table,
-    .proj-detail .article-content > figure,
-    .proj-detail .article-content > .highlight {
-      max-width: 100%;
+    /* Use full width — no readability cap (matches home page feel) */
+    .proj-detail .article-content > * {
+      max-width: 100% !important;
     }
   </style>
 {{ end }}
