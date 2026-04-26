@@ -96,6 +96,19 @@
     }
     .proj-detail .article-content > * { max-width: 100% !important; }
 
+    /* Tailwind .prose caps everything at ~65ch — kill that */
+    .proj-detail .prose,
+    .proj-detail .prose * {
+      max-width: none !important;
+    }
+    /* But keep paragraphs/lists readable on huge screens */
+    .proj-detail .article-content p,
+    .proj-detail .article-content ul,
+    .proj-detail .article-content ol,
+    .proj-detail .article-content blockquote {
+      max-width: 90ch !important;
+    }
+
     /* Lead description below title */
     .proj-lead {
       font-size: 1.05rem;
