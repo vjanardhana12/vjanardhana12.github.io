@@ -57,7 +57,7 @@ Edit, commit, push.
 ## Local preview
 
 ```powershell
-cd D:\GitHub-Personal\vjanardhana12.github.io
+cd D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 hugo server -D
 # open http://localhost:1313
 ```

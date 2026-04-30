@@ -21,7 +21,7 @@
 ## 2. Local folder
 
 ```
-D:\GitHub-Personal\vjanardhana12.github.io
+D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 ```
 
 If laptop changes / leave MS:
@@ -101,7 +101,7 @@ The site shows the card for all three, but only `public` items have a clickable 
 ### Local preview
 
 ```powershell
-cd D:\GitHub-Personal\vjanardhana12.github.io
+cd D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 hugo server -D
 # open http://localhost:1313
 ```
@@ -171,7 +171,7 @@ gh auth status
 # Should list both accounts; "Active account: true" next to vjanardhana12
 
 # 3. Create repo + push + enable Pages
-cd D:\GitHub-Personal\vjanardhana12.github.io
+cd D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 gh repo create vjanardhana12/vjanardhana12.github.io --public --source=. --remote=origin --push
 gh api repos/vjanardhana12/vjanardhana12.github.io/pages -X POST -f build_type=workflow
 ```
@@ -205,7 +205,7 @@ user.email = vinodkumar.kj@gmail.com
 
 To verify anytime:
 ```powershell
-cd D:\GitHub-Personal\vjanardhana12.github.io
+cd D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 git config --get user.name
 git config --get user.email
 ```
@@ -240,7 +240,7 @@ Find yours at: https://github.com/settings/emails
 
 To use it for commits in this repo:
 ```powershell
-cd D:\GitHub-Personal\vjanardhana12.github.io
+cd D:\GitHub\GitHub-Personal\vjanardhana12.github.io
 git config user.email "12345678+vjanardhana12@users.noreply.github.com"
 ```
 
@@ -251,7 +251,7 @@ Result: your real Gmail stays private; commits still show your name + GitHub ava
 ## 17. What's already done in this session
 
 - ✅ Hugo Extended 0.160.1 installed
-- ✅ Site scaffolded at `D:\GitHub-Personal\vjanardhana12.github.io\`
+- ✅ Site scaffolded at `D:\GitHub\GitHub-Personal\vjanardhana12.github.io\`
 - ✅ Blowfish theme vendored (trimmed, ~7.5 MB)
 - ✅ 5 sections wired (Tools / Guides / Videos / Blog / Snippets) + About
 - ✅ Asset gallery shortcode reading from `data/assets.yaml`

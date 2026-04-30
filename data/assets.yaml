@@ -4,7 +4,7 @@ assets:
     slug: "/projects/d365fo-mcp-onboarding-kit/"
     description: >
       Self-service kit to onboard D365 F&O developers to MCP. Includes a
-      DevLead wizard, TFC and FC PowerShell setups, and a generic project-init
+      auto-installs Git, VS Code, Dev MCP server, DevWorkspace and the AI Co-Lead extension
       flow. Works against any tenant/environment.
     tags:
       - D365FO

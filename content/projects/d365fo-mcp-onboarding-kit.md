@@ -1,6 +1,6 @@
 ---
 title: "D365 F&O MCP Onboarding Kit"
-description: "Self-service kit to onboard D365 F&O developers to MCP. DevLead wizard, TFC and FC PowerShell setups, and a generic project-init flow."
+description: "Self-service installer that gets any D365 F&O developer to a working MCP-powered VS Code workspace in one click. Auto-installs Git, VS Code, Dev MCP server, DevWorkspace and the AI Co-Lead extension."
 date: 2026-04-23
 tags: [D365FO, MCP, PowerShell, AI-ERP, Onboarding]
 repo: "https://github.com/mcaps-microsoft/D365FO-MCP-Onboarding"
@@ -15,7 +15,6 @@ showAuthor: false
 
 A **self-service onboarding kit** for D365 Finance & Operations developers to get up and running with **MCP (Model Context Protocol)** servers. Works against any tenant/environment.
 
-- **DevLead wizard** — generates per-project onboarding kits with Carlsberg-style or generic templates.
 - **TFC + FC setups** — pre-configured PowerShell flows for Functional Consultants and Technical Consultants.
 - **Generic project-init** — creates `d365fo-mcp.json`, `ado-config.json`, `.vscode/mcp.json` from interactive prompts.
 - **Self-updating** — `Setup.bat` always pulls latest from ADO before running.
