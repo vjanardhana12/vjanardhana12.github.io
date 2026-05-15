@@ -39,3 +39,26 @@ assets:
     version: "1.0.1"
     date: "2026-04-26"
     featured: true
+
+  - title: "D365 F&O Deployment Release Notes"
+    type: tool
+    slug: "/projects/d365fo-deployment-release-notes/"
+    description: >
+      Automated deployment release notes for D365 Finance & Operations,
+      published to Azure DevOps project wiki on every build with live
+      environment tracking, package versions, and data entity change detection.
+    tags:
+      - D365FO
+      - Azure-DevOps
+      - Release-Notes
+      - Wiki
+      - ALM
+      - DevOps
+      - Mermaid
+      - Pipeline
+    visibility: public
+    url: "https://github.com/vjanardhana12/d365fo-deployment-release-notes"
+    repo: "vjanardhana12/d365fo-deployment-release-notes"
+    version: "1.0.0"
+    date: "2026-05-15"
+    featured: false
