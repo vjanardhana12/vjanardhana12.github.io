@@ -38,7 +38,7 @@ assets:
     download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
     version: "1.0.1"
     date: "2026-04-26"
-    featured: false
+    featured: true
 
   - title: "D365 F&O Deployment Release Notes"
     type: tool
@@ -61,7 +61,7 @@ assets:
     repo: "vjanardhana12/d365fo-deployment-release-notes"
     version: "1.0.0"
     date: "2026-05-15"
-    featured: false
+    featured: true
 
   - title: "ADO Dev Task Creator"
     type: tool
