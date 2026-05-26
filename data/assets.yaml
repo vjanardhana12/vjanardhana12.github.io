@@ -104,3 +104,26 @@ assets:
     version: "1.1.0"
     date: "2026-05-03"
     featured: true
+
+  - title: "CAREvolved-MR"
+    type: tool
+    slug: "/projects/d365fo-carevolved-mr/"
+    description: >
+      Code Analysis Report (CAR) tool for D365 F&O — Multi-Root variant.
+      Source-driven local builds with X++ compile, BP, and AppChecker across
+      multiple metadata roots. Mtime-aware caching, hidden xppc, and PLD\bin
+      auto-mirror cut typical incremental runs to ~1 minute.
+    tags:
+      - D365FO
+      - CAR
+      - Code-Analysis
+      - Best-Practices
+      - AppChecker
+      - Multi-Root
+    visibility: ms-internal
+    url: "https://github.com/mcaps-microsoft/D365FO-CAREvolved-MR"
+    repo: "mcaps-microsoft/D365FO-CAREvolved-MR"
+    download: "https://github.com/mcaps-microsoft/D365FO-CAREvolved-MR/releases/latest"
+    version: "1.12.1.0"
+    date: "2026-05-26"
+    featured: false
