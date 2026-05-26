@@ -38,7 +38,7 @@ assets:
     download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
     version: "1.0.1"
     date: "2026-04-26"
-    featured: true
+    featured: false
 
   - title: "D365 F&O Deployment Release Notes"
     type: tool
@@ -62,3 +62,45 @@ assets:
     version: "1.0.0"
     date: "2026-05-15"
     featured: false
+
+  - title: "ADO Dev Task Creator"
+    type: tool
+    slug: "/projects/ado-dev-task-creator/"
+    description: >
+      Automates creation of the standard development task hierarchy under any
+      Azure DevOps Document Deliverable — Technical Review, Code Extensions,
+      Tech Design, Code Review, Unit Test, Walkthrough. CSV batch mode and dry-run.
+    tags:
+      - D365FO
+      - PowerShell
+      - Azure-DevOps
+      - ALM
+      - Automation
+    visibility: public
+    url: "https://github.com/vjanardhana12/ado-dev-task-creator"
+    repo: "vjanardhana12/ado-dev-task-creator"
+    version: "1.0.0"
+    date: "2026-05-01"
+    featured: false
+
+  - title: "D365 F&O AI Co-Lead"
+    type: tool
+    slug: "/projects/d365fo-ai-co-lead/"
+    description: >
+      Your AI partner across the entire F&O delivery lifecycle. One VS Code
+      extension, six role-aware Copilot Chat partners (Architect, FC, Dev Lead,
+      Developer, Tester, PM), and an in-product Agent Factory.
+    tags:
+      - D365FO
+      - AI-ERP
+      - VSCode
+      - MCP
+      - AI-assisted-dev
+      - Copilot
+    visibility: public
+    url: "https://github.com/vjanardhana12/d365fo-ai-co-lead"
+    repo: "vjanardhana12/d365fo-ai-co-lead"
+    download: "https://github.com/vjanardhana12/d365fo-ai-co-lead/releases/latest"
+    version: "1.1.0"
+    date: "2026-05-03"
+    featured: true
