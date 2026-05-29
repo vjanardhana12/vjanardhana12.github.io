@@ -48,7 +48,7 @@
   </aside>
 
   <!-- ─── CENTER: Main content ─── -->
-  <main class="hp-main">
+  <div class="hp-main">
     {{/* ─── What's new strip (static, top 4 by date desc) ─── */}}
     {{- $allAssets := index hugo.Data.assets "assets" -}}
     {{- $recent := first 4 (sort $allAssets "date" "desc") -}}
@@ -86,7 +86,7 @@
       </div>
     </div>
     {{ .Content }}
-  </main>
+  </div>
 
   <!-- ─── RIGHT: Profile card ─── -->
   <aside class="hp-profile">
