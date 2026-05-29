@@ -17,8 +17,10 @@ permissions:
   contents: write
 
 env:
-  # Add owners to scan here. Private repos are auto-skipped (PAT only sees what it can).
-  SCAN_OWNERS: "vjanardhana12 mcaps-microsoft"
+  # Auto-discover only under your personal user namespace.
+  # mcaps-microsoft repos are date-refreshed only when explicitly listed in data/assets.yaml
+  # (we never scan the whole org — too many repos and most aren't yours).
+  SCAN_OWNERS: "vjanardhana12"
   # Repos we explicitly never want in the marquee (this blog, intro, profile etc.)
   SKIP_REPOS: "vjanardhana12/vjanardhana12 vjanardhana12/vjanardhana12.github.io vjanardhana12/publications-guide"
 
