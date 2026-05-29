@@ -16,6 +16,22 @@ assets:
     version: "1.0.0"
     date: "2026-05-30"
     featured: false
+  - title: "D365 F&O CAREvolved Multi-Root"
+    type: tool
+    slug: "/projects/d365fo-carevolved-mr/"
+    description: >
+      Multi-root CAR / Best Practices runner for Dynamics 365 Finance & Operations. Works on UDE and CHE / Tier-1 dev VMs, merges multiple metadata roots into a single workspace, and runs BP checks in parallel.
+
+    tags:
+      - D365FO
+      - BP
+      - PowerShell
+      - DevOps
+    visibility: ms-internal
+    repo: "mcaps-microsoft/D365FO-CAREvolved-MR"
+    version: "0.1.0"
+    date: "2026-05-30"
+    featured: false
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
     slug: "/projects/d365fo-nuget-sync/"
