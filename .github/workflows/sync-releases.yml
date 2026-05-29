@@ -17,10 +17,11 @@ permissions:
   contents: write
 
 env:
-  # Auto-discover only under your personal user namespace.
-  # mcaps-microsoft repos are date-refreshed only when explicitly listed in data/assets.yaml
-  # (we never scan the whole org — too many repos and most aren't yours).
+  # Auto-discover all public repos under your personal user namespace.
   SCAN_OWNERS: "vjanardhana12"
+  # Extra repos to always probe (org repos you own but aren't under your user namespace).
+  # Add a new line here whenever you create another mcaps-microsoft repo you want featured.
+  EXTRA_REPOS: "mcaps-microsoft/D365FO-MCP-Onboarding mcaps-microsoft/D365FO-CAREvolved-MR"
   # Repos we explicitly never want in the marquee (this blog, intro, profile etc.)
   SKIP_REPOS: "vjanardhana12/vjanardhana12 vjanardhana12/vjanardhana12.github.io vjanardhana12/publications-guide"
 
@@ -168,6 +169,21 @@ jobs:
               [ "$n" -lt 100 ] && break
               page=$((page+1))
             done
+          done
+
+          echo
+          echo "--- Probe explicit EXTRA_REPOS ---"
+          for slug in $EXTRA_REPOS; do
+            [ -z "$slug" ] && continue
+            if skip_match "$slug"; then continue; fi
+            idx=$(asset_index_for "$slug")
+            json=$(gh api "repos/$slug/releases/latest" 2>/dev/null || echo "")
+            if [ -z "$json" ]; then
+              echo "-> $slug  (no releases yet)"
+              continue
+            fi
+            if [ "$idx" = "-1" ]; then echo "-> NEW $slug"; else echo "-> refresh $slug"; fi
+            upsert_release "$slug" "$json"
           done
 
           if [ "$changed" -eq 0 ]; then
