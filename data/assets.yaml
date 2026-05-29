@@ -15,7 +15,7 @@ assets:
     visibility: ms-internal
     repo: "mcaps-microsoft/D365FO-MCP-Onboarding"
     version: "1.0.0"
-    date: "2026-04-23"
+    date: "2026-05-30"
     featured: false
 
   - title: "D365 F&O NuGet Sync Tool"

@@ -151,6 +151,36 @@
     </div>
     {{- end }}
 
+    {{/* ─── Recent Releases ticker (auto-sorted by date desc) ─── */}}
+    {{- $allAssets := index hugo.Data.assets "assets" -}}
+    {{- $recent := first 6 (sort $allAssets "date" "desc") -}}
+    {{- if $recent }}
+    <div class="hp-recent">
+      <div class="hp-recent-title">🆕 Recent releases</div>
+      <div class="hp-recent-viewport">
+        <ul class="hp-recent-track">
+          {{- range $recent }}
+          {{- $typeIcon := "✨" -}}
+          {{- if eq .type "tool"    }}{{- $typeIcon = "🛠️" -}}{{- end -}}
+          {{- if eq .type "guide"   }}{{- $typeIcon = "📚" -}}{{- end -}}
+          {{- if eq .type "video"   }}{{- $typeIcon = "📺" -}}{{- end -}}
+          {{- if eq .type "snippet" }}{{- $typeIcon = "🧠" -}}{{- end -}}
+          {{- $href := .slug | default .url -}}
+          <li class="hp-recent-item">
+            <a href="{{ $href }}"{{ if not .slug }} target="_blank" rel="noopener"{{ end }}>
+              <span class="hp-recent-icon">{{ $typeIcon }}</span>
+              <span class="hp-recent-body">
+                <span class="hp-recent-name">{{ .title }}{{ with .version }} <span class="hp-recent-ver">v{{ . }}</span>{{ end }}</span>
+                <span class="hp-recent-meta">{{ with .date }}{{ dateFormat "Jan 2" . }}{{ end }}{{ if .visibility }} · {{ if eq .visibility "ms-internal" }}🔒{{ else if eq .visibility "public" }}🌐{{ else }}🔐{{ end }}{{ end }}</span>
+              </span>
+            </a>
+          </li>
+          {{- end }}
+        </ul>
+      </div>
+    </div>
+    {{- end }}
+
     {{/* ─── Latest from D365 F&O + AI (curated, verified working links) ─── */}}
     <div class="hp-news">
       <div class="hp-news-title">
@@ -494,6 +524,82 @@
     background: rgba(34, 211, 238, 0.18);
     border-color: rgba(34, 211, 238, 0.5);
     transform: translateY(-1px);
+  }
+
+  /* ─── Recent releases ticker ─── */
+  .hp-recent {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem 0.7rem;
+    border-radius: 14px;
+    border: 1px solid var(--color-neutral-200);
+    background: var(--color-neutral-50);
+  }
+  .dark .hp-recent {
+    border-color: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+  }
+  .hp-recent-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.55rem;
+  }
+  .hp-recent-viewport {
+    max-height: 230px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .hp-recent-viewport::-webkit-scrollbar { width: 6px; }
+  .hp-recent-viewport::-webkit-scrollbar-thumb { background: rgba(34,211,238,0.35); border-radius: 3px; }
+  .hp-recent-track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hp-recent-item a {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.55rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .hp-recent-item a:hover {
+    background: rgba(34, 211, 238, 0.08);
+  }
+  .hp-recent-icon {
+    font-size: 1.1rem;
+    width: 1.4rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .hp-recent-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+  .hp-recent-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-neutral-800);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dark .hp-recent-name { color: var(--color-neutral-100); }
+  .hp-recent-ver { color: #22d3ee; font-weight: 500; font-size: 0.85em; }
+  .hp-recent-meta {
+    font-size: 0.7rem;
+    opacity: 0.65;
+    margin-top: 1px;
   }
 
   /* ─── D365 F&O news widget ─── */
