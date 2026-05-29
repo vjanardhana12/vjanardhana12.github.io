@@ -10,43 +10,6 @@
 
 <div class="hp-grid">
 
-  <!-- ─── LEFT: Category sidebar ─── -->
-  <aside class="hp-sidebar">
-    <nav class="hp-nav">
-      <div class="hp-nav-title">Browse</div>
-      <a href="/projects/" class="hp-nav-item">
-        <span class="hp-nav-icon">🛠️</span>
-        <span>Tools &amp; Kits</span>
-      </a>
-      <a href="/guides/" class="hp-nav-item">
-        <span class="hp-nav-icon">📚</span>
-        <span>Guides</span>
-      </a>
-      <a href="/videos/" class="hp-nav-item">
-        <span class="hp-nav-icon">📺</span>
-        <span>Videos</span>
-      </a>
-      <a href="/blog/" class="hp-nav-item">
-        <span class="hp-nav-icon">📝</span>
-        <span>Blog</span>
-      </a>
-      <a href="/snippets/" class="hp-nav-item">
-        <span class="hp-nav-icon">🧠</span>
-        <span>Snippets</span>
-      </a>
-      <div class="hp-nav-divider"></div>
-      <div class="hp-nav-title">Discover</div>
-      <a href="/tags/" class="hp-nav-item">
-        <span class="hp-nav-icon">🏷️</span>
-        <span>Tags</span>
-      </a>
-      <a href="/about/" class="hp-nav-item">
-        <span class="hp-nav-icon">👤</span>
-        <span>About</span>
-      </a>
-    </nav>
-  </aside>
-
   <!-- ─── CENTER: Main content ─── -->
   <div class="hp-main">
     {{/* ─── What's new strip (static, top 4 by date desc) ─── */}}
@@ -241,11 +204,11 @@
     max-width: 100% !important;
   }
 
-  /* ─── 3-column grid ─── */
+  /* ─── 2-column grid: main + profile right ─── */
   .hp-grid {
     display: grid;
-    grid-template-columns: 160px 1fr 240px;
-    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 2rem;
     align-items: start;
     width: 100%;
     margin: 0;
