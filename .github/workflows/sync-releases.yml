@@ -1,4 +1,9 @@
-name: Sync release dates from GitHub
+name: Sync releases from GitHub
+
+# Pulls release dates for every existing asset AND auto-discovers any new
+# public repo you own (under vjanardhana12 / mcaps-microsoft) that has at
+# least one published release. New repos appear in the marquee within 24h
+# with zero per-repo setup.
 
 on:
   schedule:
@@ -11,6 +16,12 @@ on:
 permissions:
   contents: write
 
+env:
+  # Add owners to scan here. Private repos are auto-skipped (PAT only sees what it can).
+  SCAN_OWNERS: "vjanardhana12 mcaps-microsoft"
+  # Repos we explicitly never want in the marquee (this blog, intro, profile etc.)
+  SKIP_REPOS: "vjanardhana12/vjanardhana12 vjanardhana12/vjanardhana12.github.io vjanardhana12/publications-guide"
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -22,47 +33,143 @@ jobs:
           sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           sudo chmod +x /usr/local/bin/yq
 
-      - name: Sync release version + date for every asset that has a repo
+      - name: Sync existing assets + auto-discover new repos with releases
         env:
           GH_TOKEN: ${{ secrets.GH_RELEASES_PAT || secrets.GITHUB_TOKEN }}
         run: |
           set -e
           changed=0
-          count=$(yq '.assets | length' data/assets.yaml)
-          for i in $(seq 0 $((count-1))); do
-            repo=$(yq ".assets[$i].repo" data/assets.yaml)
-            title=$(yq ".assets[$i].title" data/assets.yaml)
-            if [ "$repo" = "null" ] || [ -z "$repo" ]; then continue; fi
 
-            # Accept either "owner/name" or full URL
-            slug=$(echo "$repo" | sed -E 's|^https?://github.com/||; s|\.git$||')
+          skip_match() {
+            local s="$1"
+            for x in $SKIP_REPOS; do [ "$x" = "$s" ] && return 0; done
+            return 1
+          }
 
-            echo "→ $title  ($slug)"
-            json=$(gh api "repos/$slug/releases/latest" 2>/dev/null || echo "")
-            if [ -z "$json" ]; then
-              echo "   (no releases yet — skipped)"
-              continue
-            fi
+          mapfile -t existing < <(yq '.assets[].repo' data/assets.yaml \
+            | sed -E 's|^https?://github.com/||; s|\.git$||; s|^"||; s|"$||' \
+            | grep -v '^null$' || true)
+
+          asset_index_for() {
+            local slug="$1"
+            local count
+            count=$(yq '.assets | length' data/assets.yaml)
+            for i in $(seq 0 $((count-1))); do
+              local s
+              s=$(yq ".assets[$i].repo" data/assets.yaml \
+                | sed -E 's|^https?://github.com/||; s|\.git$||; s|^"||; s|"$||')
+              if [ "$s" = "$slug" ]; then echo "$i"; return; fi
+            done
+            echo "-1"
+          }
+
+          upsert_release() {
+            local slug="$1"
+            local json="$2"
+            local tag pub repo_json repo_desc visibility title url idx cv cd
 
             tag=$(echo "$json" | jq -r '.tag_name // ""' | sed 's/^v//')
-            published=$(echo "$json" | jq -r '.published_at // ""' | cut -d'T' -f1)
+            pub=$(echo "$json" | jq -r '.published_at // ""' | cut -d'T' -f1)
+            if [ -z "$tag" ] || [ -z "$pub" ]; then return; fi
 
-            if [ -z "$tag" ] || [ -z "$published" ]; then continue; fi
+            idx=$(asset_index_for "$slug")
 
-            cur_version=$(yq ".assets[$i].version" data/assets.yaml)
-            cur_date=$(yq ".assets[$i].date"    data/assets.yaml)
-
-            if [ "$cur_version" != "$tag" ] || [ "$cur_date" != "$published" ]; then
-              yq -i ".assets[$i].version = \"$tag\"" data/assets.yaml
-              yq -i ".assets[$i].date    = \"$published\"" data/assets.yaml
-              echo "   updated: v$tag · $published  (was v$cur_version · $cur_date)"
-              changed=1
-            else
-              echo "   up to date (v$tag · $published)"
+            if [ "$idx" != "-1" ]; then
+              cv=$(yq ".assets[$idx].version" data/assets.yaml)
+              cd=$(yq ".assets[$idx].date"    data/assets.yaml)
+              if [ "$cv" != "$tag" ] || [ "$cd" != "$pub" ]; then
+                yq -i ".assets[$idx].version = \"$tag\"" data/assets.yaml
+                yq -i ".assets[$idx].date    = \"$pub\"" data/assets.yaml
+                echo "   updated: v$tag · $pub  (was v$cv · $cd)"
+                changed=1
+              else
+                echo "   up to date (v$tag · $pub)"
+              fi
+              return
             fi
+
+            repo_json=$(gh api "repos/$slug" 2>/dev/null || echo "{}")
+            repo_desc=$(echo "$repo_json" | jq -r '.description // ""')
+            case "$slug" in
+              mcaps-microsoft/*) visibility="ms-internal" ;;
+              *)                 visibility="public" ;;
+            esac
+
+            title="${slug##*/}"
+            url="https://github.com/$slug"
+
+            echo "   + NEW asset: $title (v$tag · $pub)"
+            yq -i ".assets += [{
+              \"title\": \"$title\",
+              \"type\": \"tool\",
+              \"description\": \"$repo_desc\",
+              \"tags\": [],
+              \"visibility\": \"$visibility\",
+              \"url\": \"$url\",
+              \"repo\": \"$slug\",
+              \"version\": \"$tag\",
+              \"date\": \"$pub\",
+              \"featured\": false
+            }]" data/assets.yaml
+            changed=1
+          }
+
+          echo "--- Refresh existing assets ---"
+          for slug in "${existing[@]}"; do
+            [ -z "$slug" ] && continue
+            if skip_match "$slug"; then
+              echo "-> $slug  (in skip list)"
+              continue
+            fi
+            echo "-> $slug"
+            json=$(gh api "repos/$slug/releases/latest" 2>/dev/null || echo "")
+            if [ -z "$json" ]; then
+              echo "   (no releases yet)"
+              continue
+            fi
+            upsert_release "$slug" "$json"
+          done
+
+          echo
+          echo "--- Auto-discover under: $SCAN_OWNERS ---"
+          for owner in $SCAN_OWNERS; do
+            page=1
+            while :; do
+              kind=$(gh api "users/$owner" --jq '.type' 2>/dev/null || echo "")
+              if [ "$kind" = "Organization" ]; then
+                listing=$(gh api "orgs/$owner/repos?per_page=100&page=$page&type=public" 2>/dev/null || echo "[]")
+              else
+                listing=$(gh api "users/$owner/repos?per_page=100&page=$page&type=owner" 2>/dev/null || echo "[]")
+              fi
+              n=$(echo "$listing" | jq 'length')
+              [ "$n" = "0" ] && break
+
+              while read -r row; do
+                slug=$(echo "$row" | jq -r '.slug')
+                archived=$(echo "$row" | jq -r '.archived')
+                private=$(echo "$row" | jq -r '.private')
+
+                [ "$archived" = "true" ] && continue
+                [ "$private"  = "true" ] && continue
+                if skip_match "$slug"; then continue; fi
+
+                idx=$(asset_index_for "$slug")
+                if [ "$idx" != "-1" ]; then continue; fi
+
+                json=$(gh api "repos/$slug/releases/latest" 2>/dev/null || echo "")
+                if [ -z "$json" ]; then continue; fi
+
+                echo "-> discovered $slug"
+                upsert_release "$slug" "$json"
+              done < <(echo "$listing" | jq -c '.[] | {slug: .full_name, archived, private}')
+
+              [ "$n" -lt 100 ] && break
+              page=$((page+1))
+            done
           done
 
           if [ "$changed" -eq 0 ]; then
+            echo
             echo "Nothing to commit."
             exit 0
           fi
@@ -70,5 +177,5 @@ jobs:
           git config user.name  "release-sync-bot"
           git config user.email "release-sync-bot@users.noreply.github.com"
           git add data/assets.yaml
-          git commit -m "chore: sync release dates from GitHub [skip ci]"
+          git commit -m "chore: sync releases from GitHub [skip ci]"
           git push
