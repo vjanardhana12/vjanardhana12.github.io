@@ -4,7 +4,7 @@ description: "Multi-root CAR / Best Practices runner for Dynamics 365 Finance & 
 date: 2026-05-30
 tags: [D365FO, BP, PowerShell, DevOps]
 repo: "https://github.com/mcaps-microsoft/D365FO-CAREvolved-MR"
-version: "0.1.0"
+version: "1.0.0"
 visibility: "ms-internal"
 showReadingTime: false
 showWordCount: false
@@ -39,4 +39,4 @@ CAREvolved MR fixes that with a single config and one command.
 
 ## Status
 
-**v0.1.0** — early but usable. Microsoft-internal; access via the linked repo above.
+**v1.0.0** — production-ready. Microsoft-internal; access via the linked repo above.
