@@ -1,0 +1,74 @@
+name: Sync release dates from GitHub
+
+on:
+  schedule:
+    # Every day at 02:00 UTC (~07:30 IST)
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [release-published]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Sync release version + date for every asset that has a repo
+        env:
+          GH_TOKEN: ${{ secrets.GH_RELEASES_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          changed=0
+          count=$(yq '.assets | length' data/assets.yaml)
+          for i in $(seq 0 $((count-1))); do
+            repo=$(yq ".assets[$i].repo" data/assets.yaml)
+            title=$(yq ".assets[$i].title" data/assets.yaml)
+            if [ "$repo" = "null" ] || [ -z "$repo" ]; then continue; fi
+
+            # Accept either "owner/name" or full URL
+            slug=$(echo "$repo" | sed -E 's|^https?://github.com/||; s|\.git$||')
+
+            echo "→ $title  ($slug)"
+            json=$(gh api "repos/$slug/releases/latest" 2>/dev/null || echo "")
+            if [ -z "$json" ]; then
+              echo "   (no releases yet — skipped)"
+              continue
+            fi
+
+            tag=$(echo "$json" | jq -r '.tag_name // ""' | sed 's/^v//')
+            published=$(echo "$json" | jq -r '.published_at // ""' | cut -d'T' -f1)
+
+            if [ -z "$tag" ] || [ -z "$published" ]; then continue; fi
+
+            cur_version=$(yq ".assets[$i].version" data/assets.yaml)
+            cur_date=$(yq ".assets[$i].date"    data/assets.yaml)
+
+            if [ "$cur_version" != "$tag" ] || [ "$cur_date" != "$published" ]; then
+              yq -i ".assets[$i].version = \"$tag\"" data/assets.yaml
+              yq -i ".assets[$i].date    = \"$published\"" data/assets.yaml
+              echo "   updated: v$tag · $published  (was v$cur_version · $cur_date)"
+              changed=1
+            else
+              echo "   up to date (v$tag · $published)"
+            fi
+          done
+
+          if [ "$changed" -eq 0 ]; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+
+          git config user.name  "release-sync-bot"
+          git config user.email "release-sync-bot@users.noreply.github.com"
+          git add data/assets.yaml
+          git commit -m "chore: sync release dates from GitHub [skip ci]"
+          git push
