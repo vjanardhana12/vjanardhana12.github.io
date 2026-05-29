@@ -3,9 +3,8 @@ assets:
     type: tool
     slug: "/projects/d365fo-mcp-onboarding-kit/"
     description: >
-      Self-service kit to onboard D365 F&O developers to MCP. Includes a
-      auto-installs Git, VS Code, Dev MCP server, DevWorkspace and the AI Co-Lead extension
-      flow. Works against any tenant/environment.
+      Self-service kit to onboard D365 F&O developers to MCP. Includes a auto-installs Git, VS Code, Dev MCP server, DevWorkspace and the AI Co-Lead extension flow. Works against any tenant/environment.
+
     tags:
       - D365FO
       - MCP
@@ -17,14 +16,12 @@ assets:
     version: "1.0.0"
     date: "2026-05-30"
     featured: false
-
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
     slug: "/projects/d365fo-nuget-sync/"
     description: >
-      One-click sync of the core D365 F&O NuGet package set from LCS Shared
-      Asset Library to Azure DevOps Artifacts. Smart compare skips existing
-      packages, runs parallel uploads, and ships as a single EXE with auto-update.
+      One-click sync of the core D365 F&O NuGet package set from LCS Shared Asset Library to Azure DevOps Artifacts. Smart compare skips existing packages, runs parallel uploads, and ships as a single EXE with auto-update.
+
     tags:
       - D365FO
       - PowerShell
@@ -36,17 +33,15 @@ assets:
     url: "https://github.com/vjanardhana12/d365fo-nuget-sync"
     repo: "vjanardhana12/d365fo-nuget-sync"
     download: "https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip"
-    version: "1.0.1"
-    date: "2026-04-26"
+    version: "1.1.3"
+    date: "2026-05-12"
     featured: true
-
   - title: "D365 F&O Deployment Release Notes"
     type: tool
     slug: "/projects/d365fo-deployment-release-notes/"
     description: >
-      Automated deployment release notes for D365 Finance & Operations,
-      published to Azure DevOps project wiki on every build with live
-      environment tracking, package versions, and data entity change detection.
+      Automated deployment release notes for D365 Finance & Operations, published to Azure DevOps project wiki on every build with live environment tracking, package versions, and data entity change detection.
+
     tags:
       - D365FO
       - Azure-DevOps
@@ -60,16 +55,14 @@ assets:
     url: "https://github.com/vjanardhana12/d365fo-deployment-release-notes"
     repo: "vjanardhana12/d365fo-deployment-release-notes"
     version: "1.0.0"
-    date: "2026-05-15"
+    date: "2026-05-27"
     featured: true
-
   - title: "ADO Dev Task Creator"
     type: tool
     slug: "/projects/ado-dev-task-creator/"
     description: >
-      Automates creation of the standard development task hierarchy under any
-      Azure DevOps Document Deliverable — Technical Review, Code Extensions,
-      Tech Design, Code Review, Unit Test, Walkthrough. CSV batch mode and dry-run.
+      Automates creation of the standard development task hierarchy under any Azure DevOps Document Deliverable — Technical Review, Code Extensions, Tech Design, Code Review, Unit Test, Walkthrough. CSV batch mode and dry-run.
+
     tags:
       - D365FO
       - PowerShell
@@ -82,14 +75,12 @@ assets:
     version: "1.0.0"
     date: "2026-05-01"
     featured: false
-
   - title: "D365 F&O AI Co-Lead"
     type: tool
     slug: "/projects/d365fo-ai-co-lead/"
     description: >
-      Your AI partner across the entire F&O delivery lifecycle. One VS Code
-      extension, six role-aware Copilot Chat partners (Architect, FC, Dev Lead,
-      Developer, Tester, PM), and an in-product Agent Factory.
+      Your AI partner across the entire F&O delivery lifecycle. One VS Code extension, six role-aware Copilot Chat partners (Architect, FC, Dev Lead, Developer, Tester, PM), and an in-product Agent Factory.
+
     tags:
       - D365FO
       - AI-ERP
@@ -102,6 +93,5 @@ assets:
     repo: "vjanardhana12/d365fo-ai-co-lead"
     download: "https://github.com/vjanardhana12/d365fo-ai-co-lead/releases/latest"
     version: "1.1.0"
-    date: "2026-05-03"
+    date: "2026-05-02"
     featured: true
-
