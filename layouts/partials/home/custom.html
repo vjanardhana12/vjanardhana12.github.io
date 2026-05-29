@@ -49,32 +49,24 @@
 
   <!-- ─── CENTER: Main content ─── -->
   <main class="hp-main">
-    {{/* ─── Recent releases marquee (auto-sorted by date desc, top 8) ─── */}}
+    {{/* ─── What's new strip (static, top 4 by date desc) ─── */}}
     {{- $allAssets := index hugo.Data.assets "assets" -}}
-    {{- $recent := first 8 (sort $allAssets "date" "desc") -}}
+    {{- $recent := first 4 (sort $allAssets "date" "desc") -}}
     {{- if $recent }}
-    <div class="hp-marquee" aria-label="Recent releases">
-      <div class="hp-marquee-label">🆕 Recent</div>
-      <div class="hp-marquee-viewport">
-        <div class="hp-marquee-track">
-          {{- range $i, $a := (seq 1 2) -}}
-            {{- range $recent -}}
-            {{- $typeIcon := "✨" -}}
-            {{- if eq .type "tool"    }}{{- $typeIcon = "🛠️" -}}{{- end -}}
-            {{- if eq .type "guide"   }}{{- $typeIcon = "📚" -}}{{- end -}}
-            {{- if eq .type "video"   }}{{- $typeIcon = "📺" -}}{{- end -}}
-            {{- if eq .type "snippet" }}{{- $typeIcon = "🧠" -}}{{- end -}}
-            {{- $href := .slug | default .url -}}
-            <a class="hp-marquee-item" href="{{ $href }}"{{ if not .slug }} target="_blank" rel="noopener"{{ end }} aria-hidden="{{ if gt $i 0 }}true{{ else }}false{{ end }}">
-              <span class="hp-marquee-icon">{{ $typeIcon }}</span>
-              <span class="hp-marquee-name">{{ .title }}</span>
-              {{- with .version }}<span class="hp-marquee-ver">v{{ . }}</span>{{ end }}
-              {{- with .date }}<span class="hp-marquee-date">{{ dateFormat "Jan 2" . }}</span>{{ end }}
-            </a>
-            {{- end -}}
-          {{- end -}}
-        </div>
-      </div>
+    <div class="hp-whatsnew" aria-label="What's new">
+      <span class="hp-whatsnew-label">What's new</span>
+      <ul class="hp-whatsnew-list">
+        {{- range $recent }}
+        {{- $href := .slug | default .url -}}
+        <li>
+          <a class="hp-whatsnew-item" href="{{ $href }}"{{ if not .slug }} target="_blank" rel="noopener"{{ end }}>
+            <span class="hp-whatsnew-name">{{ .title }}</span>
+            {{- with .version }}<span class="hp-whatsnew-ver">v{{ . }}</span>{{ end }}
+            {{- with .date }}<span class="hp-whatsnew-date">{{ dateFormat "Jan 2" . }}</span>{{ end }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
     </div>
     {{- end }}
 
@@ -525,78 +517,55 @@
     transform: translateY(-1px);
   }
 
-  /* ─── Recent releases marquee (top of main column) ─── */
-  .hp-marquee {
+  /* ─── What's new strip (static, top of main column) ─── */
+  .hp-whatsnew {
     display: flex;
-    align-items: stretch;
-    gap: 0;
-    margin: 0 0 1.25rem 0;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin: 0 0 1rem 0;
+    padding: 0.55rem 0.85rem;
     border: 1px solid var(--color-neutral-200);
     border-radius: 10px;
     background: var(--color-neutral-50);
-    overflow: hidden;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
-  .dark .hp-marquee {
+  .dark .hp-whatsnew {
     border-color: var(--color-neutral-700);
     background: var(--color-neutral-800);
   }
-  .hp-marquee-label {
+  .hp-whatsnew-label {
     flex-shrink: 0;
-    padding: 0.5rem 0.85rem;
     font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #0d1b22;
-    background: #22d3ee;
+    color: #22d3ee;
+    padding-right: 0.5rem;
+    border-right: 1px solid var(--color-neutral-300);
+  }
+  .dark .hp-whatsnew-label { border-right-color: var(--color-neutral-700); }
+  .hp-whatsnew-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
   }
-  .hp-marquee-viewport {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-  }
-  .hp-marquee-track {
-    display: flex;
-    gap: 2.25rem;
-    padding: 0.5rem 0;
-    width: max-content;
-    animation: hp-marquee-scroll 45s linear infinite;
-  }
-  .hp-marquee:hover .hp-marquee-track { animation-play-state: paused; }
-  @keyframes hp-marquee-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .hp-marquee-item {
+  .hp-whatsnew-item {
     display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
+    align-items: baseline;
+    gap: 0.4rem;
     text-decoration: none;
     color: var(--color-neutral-700);
     white-space: nowrap;
-    flex-shrink: 0;
   }
-  .dark .hp-marquee-item { color: var(--color-neutral-200); }
-  .hp-marquee-item:hover { color: var(--color-primary-500); }
-  .hp-marquee-icon { font-size: 1rem; }
-  .hp-marquee-name { font-weight: 600; }
-  .hp-marquee-ver { color: #22d3ee; font-weight: 500; font-size: 0.85em; }
-  .hp-marquee-date {
-    font-size: 0.72rem;
-    opacity: 0.6;
-    padding-left: 0.2rem;
-    border-left: 1px solid var(--color-neutral-300);
-    margin-left: 0.2rem;
-  }
-  .dark .hp-marquee-date { border-left-color: var(--color-neutral-600); }
-  @media (prefers-reduced-motion: reduce) {
-    .hp-marquee-track { animation: none; }
-  }
+  .dark .hp-whatsnew-item { color: var(--color-neutral-200); }
+  .hp-whatsnew-item:hover { color: var(--color-primary-500); }
+  .hp-whatsnew-name { font-weight: 600; }
+  .hp-whatsnew-ver { color: #22d3ee; font-weight: 500; font-size: 0.85em; }
+  .hp-whatsnew-date { font-size: 0.72rem; opacity: 0.55; }
 
   /* ─── D365 F&O news widget ─── */
   .hp-news {
