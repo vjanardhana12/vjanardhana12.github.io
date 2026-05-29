@@ -236,10 +236,15 @@
   @media (min-width: 640px)  { .fixed.inset-x-0 > .max-w-7xl { padding-left: 2rem !important; padding-right: 2rem !important; } }
   @media (min-width: 1024px) { .fixed.inset-x-0 > .max-w-7xl { padding-left: 3rem !important; padding-right: 3rem !important; } }
 
+  /* Force theme's inner main containers to full width so 3-col grid has room */
+  main, .max-w-prose, .max-w-3xl, .max-w-4xl, .max-w-5xl, .max-w-6xl, .max-w-7xl {
+    max-width: 100% !important;
+  }
+
   /* ─── 3-column grid ─── */
   .hp-grid {
     display: grid;
-    grid-template-columns: 180px 1fr 250px;
+    grid-template-columns: 160px 1fr 240px;
     gap: 1.25rem;
     align-items: start;
     width: 100%;
@@ -630,7 +635,7 @@
   }
 
   /* ─── Responsive: tablet ─── */
-  @media (max-width: 860px) {
+  @media (max-width: 700px) {
     .hp-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
