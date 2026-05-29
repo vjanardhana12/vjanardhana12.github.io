@@ -247,12 +247,12 @@
   /* ─── 3-column grid ─── */
   .hp-grid {
     display: grid;
-    grid-template-columns: 200px 1fr 280px;
-    gap: 2rem;
+    grid-template-columns: 180px 1fr 250px;
+    gap: 1.25rem;
     align-items: start;
     width: 100%;
     margin: 0;
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 
   /* ─── LEFT: Sidebar nav ─── */
@@ -317,31 +317,31 @@
 
   /* ─── Hero band (fills the empty space above the latest-release card) ─── */
   .hp-hero {
-    padding: 0.5rem 0 1.5rem;
+    padding: 0.25rem 0 1rem;
   }
   .hp-hero-eyebrow {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--color-primary-500);
     opacity: 0.9;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.4rem;
   }
   .dark .hp-hero-eyebrow { color: var(--color-primary-400); }
   .hp-hero-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     line-height: 1.2;
     font-weight: 700;
-    margin: 0 0 0.6rem 0;
+    margin: 0 0 0.4rem 0;
     color: var(--color-neutral-900);
   }
   .dark .hp-hero-title { color: #ffffff; }
   .hp-hero-sub {
-    font-size: 0.95rem;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    line-height: 1.5;
     color: var(--color-neutral-600);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.7rem 0;
     max-width: 60ch;
   }
   .dark .hp-hero-sub { color: var(--color-neutral-300); }
@@ -653,7 +653,7 @@
   }
 
   /* ─── Responsive: tablet ─── */
-  @media (max-width: 1024px) {
+  @media (max-width: 860px) {
     .hp-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
