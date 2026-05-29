@@ -10,8 +10,45 @@
 
 <div class="hp-grid">
 
+  <!-- ─── LEFT: Category sidebar ─── -->
+  <aside class="hp-sidebar">
+    <nav class="hp-nav">
+      <div class="hp-nav-title">Browse</div>
+      <a href="/projects/" class="hp-nav-item">
+        <span class="hp-nav-icon">🛠️</span>
+        <span>Tools &amp; Kits</span>
+      </a>
+      <a href="/guides/" class="hp-nav-item">
+        <span class="hp-nav-icon">📚</span>
+        <span>Guides</span>
+      </a>
+      <a href="/videos/" class="hp-nav-item">
+        <span class="hp-nav-icon">📺</span>
+        <span>Videos</span>
+      </a>
+      <a href="/blog/" class="hp-nav-item">
+        <span class="hp-nav-icon">📝</span>
+        <span>Blog</span>
+      </a>
+      <a href="/snippets/" class="hp-nav-item">
+        <span class="hp-nav-icon">🧠</span>
+        <span>Snippets</span>
+      </a>
+      <div class="hp-nav-divider"></div>
+      <div class="hp-nav-title">Discover</div>
+      <a href="/tags/" class="hp-nav-item">
+        <span class="hp-nav-icon">🏷️</span>
+        <span>Tags</span>
+      </a>
+      <a href="/about/" class="hp-nav-item">
+        <span class="hp-nav-icon">👤</span>
+        <span>About</span>
+      </a>
+    </nav>
+  </aside>
+
   <!-- ─── CENTER: Main content ─── -->
-  <div class="hp-main">
+  <main class="hp-main">
     {{/* ─── What's new strip (static, top 4 by date desc) ─── */}}
     {{- $allAssets := index hugo.Data.assets "assets" -}}
     {{- $recent := first 4 (sort $allAssets "date" "desc") -}}
@@ -49,7 +86,7 @@
       </div>
     </div>
     {{ .Content }}
-  </div>
+  </main>
 
   <!-- ─── RIGHT: Profile card ─── -->
   <aside class="hp-profile">
@@ -199,16 +236,11 @@
   @media (min-width: 640px)  { .fixed.inset-x-0 > .max-w-7xl { padding-left: 2rem !important; padding-right: 2rem !important; } }
   @media (min-width: 1024px) { .fixed.inset-x-0 > .max-w-7xl { padding-left: 3rem !important; padding-right: 3rem !important; } }
 
-  /* Force theme's inner main containers to full width so 3-col grid has room */
-  main, .max-w-prose, .max-w-3xl, .max-w-4xl, .max-w-5xl, .max-w-6xl, .max-w-7xl {
-    max-width: 100% !important;
-  }
-
-  /* ─── 2-column grid: main + profile right ─── */
+  /* ─── 3-column grid ─── */
   .hp-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 2rem;
+    grid-template-columns: 180px 1fr 250px;
+    gap: 1.25rem;
     align-items: start;
     width: 100%;
     margin: 0;
@@ -217,7 +249,8 @@
 
   /* ─── LEFT: Sidebar nav ─── */
   .hp-sidebar {
-    min-width: 0;
+    position: sticky;
+    top: 5rem;
   }
   .hp-nav {
     display: flex;
@@ -329,7 +362,8 @@
 
   /* ─── RIGHT: Profile card ─── */
   .hp-profile {
-    min-width: 0;
+    position: sticky;
+    top: 5rem;
   }
   .hp-profile-card {
     display: flex;
@@ -596,7 +630,7 @@
   }
 
   /* ─── Responsive: tablet ─── */
-  @media (max-width: 700px) {
+  @media (max-width: 860px) {
     .hp-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
