@@ -48,28 +48,7 @@
   </aside>
 
   <!-- ─── CENTER: Main content ─── -->
-  <div class="hp-main">
-    {{/* ─── What's new strip (static, top 4 by date desc) ─── */}}
-    {{- $allAssets := index hugo.Data.assets "assets" -}}
-    {{- $recent := first 4 (sort $allAssets "date" "desc") -}}
-    {{- if $recent }}
-    <div class="hp-whatsnew" aria-label="What's new">
-      <span class="hp-whatsnew-label">What's new</span>
-      <ul class="hp-whatsnew-list">
-        {{- range $recent }}
-        {{- $href := .slug | default .url -}}
-        <li>
-          <a class="hp-whatsnew-item" href="{{ $href }}"{{ if not .slug }} target="_blank" rel="noopener"{{ end }}>
-            <span class="hp-whatsnew-name">{{ .title }}</span>
-            {{- with .version }}<span class="hp-whatsnew-ver">v{{ . }}</span>{{ end }}
-            {{- with .date }}<span class="hp-whatsnew-date">{{ dateFormat "Jan 2" . }}</span>{{ end }}
-          </a>
-        </li>
-        {{- end }}
-      </ul>
-    </div>
-    {{- end }}
-
+  <main class="hp-main">
     <div class="hp-hero">
       <div class="hp-hero-eyebrow">Open source · Notes from the field · Built while shipping</div>
       <h1 class="hp-hero-title">Things built while solving real problems.</h1>
@@ -86,7 +65,7 @@
       </div>
     </div>
     {{ .Content }}
-  </div>
+  </main>
 
   <!-- ─── RIGHT: Profile card ─── -->
   <aside class="hp-profile">
@@ -239,12 +218,12 @@
   /* ─── 3-column grid ─── */
   .hp-grid {
     display: grid;
-    grid-template-columns: 180px 1fr 250px;
-    gap: 1.25rem;
+    grid-template-columns: 200px 1fr 280px;
+    gap: 2rem;
     align-items: start;
     width: 100%;
     margin: 0;
-    padding: 1rem 0;
+    padding: 2rem 0;
   }
 
   /* ─── LEFT: Sidebar nav ─── */
@@ -309,31 +288,31 @@
 
   /* ─── Hero band (fills the empty space above the latest-release card) ─── */
   .hp-hero {
-    padding: 0.25rem 0 1rem;
+    padding: 0.5rem 0 1.5rem;
   }
   .hp-hero-eyebrow {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--color-primary-500);
     opacity: 0.9;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
   }
   .dark .hp-hero-eyebrow { color: var(--color-primary-400); }
   .hp-hero-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     line-height: 1.2;
     font-weight: 700;
-    margin: 0 0 0.4rem 0;
+    margin: 0 0 0.6rem 0;
     color: var(--color-neutral-900);
   }
   .dark .hp-hero-title { color: #ffffff; }
   .hp-hero-sub {
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-size: 0.95rem;
+    line-height: 1.55;
     color: var(--color-neutral-600);
-    margin: 0 0 0.7rem 0;
+    margin: 0 0 1rem 0;
     max-width: 60ch;
   }
   .dark .hp-hero-sub { color: var(--color-neutral-300); }
@@ -517,64 +496,6 @@
     transform: translateY(-1px);
   }
 
-  /* ─── What's new strip (static, top of main column) ─── */
-  .hp-whatsnew {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    margin: 0 0 1rem 0;
-    padding: 0.55rem 0.85rem;
-    border: 1px solid var(--color-neutral-200);
-    border-radius: 10px;
-    background: var(--color-neutral-50);
-    font-size: 0.8rem;
-  }
-  .dark .hp-whatsnew {
-    border-color: var(--color-neutral-700);
-    background: var(--color-neutral-800);
-  }
-  .hp-whatsnew-label {
-    flex-shrink: 0;
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #22d3ee;
-    padding-right: 0.5rem;
-    border-right: 1px solid var(--color-neutral-300);
-  }
-  .dark .hp-whatsnew-label { border-right-color: var(--color-neutral-700); }
-  .hp-whatsnew-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 0;
-  }
-  .hp-whatsnew-list > li {
-    display: inline-flex;
-    align-items: center;
-    padding: 0 0.9rem;
-    border-right: 1px solid var(--color-neutral-300);
-  }
-  .hp-whatsnew-list > li:last-child { border-right: none; }
-  .dark .hp-whatsnew-list > li { border-right-color: var(--color-neutral-700); }
-  .hp-whatsnew-item {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.4rem;
-    text-decoration: none;
-    color: var(--color-neutral-700);
-    white-space: nowrap;
-  }
-  .dark .hp-whatsnew-item { color: var(--color-neutral-200); }
-  .hp-whatsnew-item:hover { color: var(--color-primary-500); }
-  .hp-whatsnew-name { font-weight: 600; }
-  .hp-whatsnew-ver { color: #22d3ee; font-weight: 500; font-size: 0.85em; }
-  .hp-whatsnew-date { font-size: 0.72rem; opacity: 0.55; }
-
   /* ─── D365 F&O news widget ─── */
   .hp-news {
     margin-top: 1rem;
@@ -630,7 +551,7 @@
   }
 
   /* ─── Responsive: tablet ─── */
-  @media (max-width: 860px) {
+  @media (max-width: 1024px) {
     .hp-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
