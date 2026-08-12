@@ -35,6 +35,24 @@ assets:
     version: "1.0.0"
     date: "2026-07-27"
     featured: false
+  - title: "D365 F&O Azure DevOps Pipelines"
+    type: tool
+    slug: "/projects/d365fo-pipelines/"
+    description: >
+      Reusable Azure DevOps YAML pipelines for Dynamics 365 F&O (X++) — PR / main / release CI, deployable LCS package, ISV NuGet publish, auto package-version floating, and rich release notes (PRs + linked work items + Changed Objects by Type, optional wiki publish).
+
+    tags:
+      - D365FO
+      - Azure-DevOps
+      - Pipeline
+      - ALM
+      - DevOps
+      - Release-Notes
+      - NuGet
+    visibility: ms-internal
+    repo: "microsoft/Pipelines-for-Finance-and-Operations"
+    date: "2026-08-12"
+    featured: false
   - title: "D365 F&O NuGet Sync Tool"
     type: tool
     slug: "/projects/d365fo-nuget-sync/"
