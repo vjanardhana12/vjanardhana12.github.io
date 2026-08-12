@@ -4,7 +4,7 @@ description: "Reusable Azure DevOps YAML pipelines for Dynamics 365 F&O (X++) �
 date: 2026-08-12
 tags: [D365FO, Azure-DevOps, Pipeline, ALM, DevOps, Release-Notes, NuGet]
 repo: "https://github.com/microsoft/Pipelines-for-Finance-and-Operations"
-visibility: "ms-internal"
+visibility: "public"
 showReadingTime: false
 showWordCount: false
 showAuthor: false
@@ -50,4 +50,4 @@ The templates are **generic** — every project-specific value is marked with a 
 
 ## Status
 
-Living template repository under `microsoft/`. Microsoft-internal visibility — accessible to Microsoft org members via the linked repo.
+Living template repository under `microsoft/` on GitHub — public and open to any GitHub account via the linked repo.

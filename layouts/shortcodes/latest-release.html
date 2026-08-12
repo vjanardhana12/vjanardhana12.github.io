@@ -1,14 +1,18 @@
 {{/*
   latest-release banner shortcode
-  Shows every asset in data/assets.yaml whose `date` is within the last 7 days.
-  - 1 item  → slim single-line "Latest" band (a signpost, not a hero).
-  - 2+ items → flat card grid labelled "This week · N releases".
-  If nothing was published in the last 7 days, falls back to the single most
-  recent asset rendered as the slim band (so it's never empty).
+  Surfaces the most recently published assets from data/assets.yaml, ordered by
+  `date` (newest first).
+  - If 2+ items fall within the last 7 days → "This week · N releases" grid of
+    exactly those items.
+  - Otherwise → "Latest releases" grid of the N newest items (N = `count`,
+    default 3).
+  - If only a single asset has a date at all → slim single-line "Latest" band.
 
-  Usage:  {{< latest-release >}}
+  Usage:  {{< latest-release >}}          (defaults to 3)
+          {{< latest-release count="4" >}}
 */}}
 
+{{- $count := int (.Get "count" | default 3) -}}
 {{- $all := (index hugo.Data.assets "assets") -}}
 {{- $now := now -}}
 {{- $cutoff := $now.AddDate 0 0 -7 -}}
@@ -26,23 +30,31 @@
 {{/* Sort newest first */}}
 {{- $sorted := sort $withDates "t" "desc" -}}
 
-{{/* Filter to last 7 days */}}
+{{/* Items published within the last 7 days */}}
 {{- $recent := slice -}}
 {{- range $sorted -}}
   {{- if ge .t $cutoff -}}{{- $recent = $recent | append . -}}{{- end -}}
 {{- end -}}
 
-{{/* Fallback to single latest if nothing in the last 7 days */}}
-{{- $picks := $recent -}}
-{{- if not $picks -}}{{- $picks = first 1 $sorted -}}{{- end -}}
+{{/* Decide what to show and how to label it:
+     - 2+ this week  → those items, "This week · N releases"
+     - else          → newest `count` items, "Latest releases"           */}}
+{{- $picks := slice -}}
+{{- $label := "Latest releases" -}}
+{{- if ge (len $recent) 2 -}}
+  {{- $picks = $recent -}}
+  {{- $label = printf "This week · %d releases" (len $recent) -}}
+{{- else -}}
+  {{- $picks = first (math.Min $count (len $sorted)) $sorted -}}
+{{- end -}}
 {{- $multi := gt (len $picks) 1 -}}
 
 {{- if $picks }}
 {{- if $multi }}
-{{/* ─── 2+ releases this week: flat card grid ─── */}}
+{{/* ─── Multiple releases: flat card grid ─── */}}
 <div class="hp-releases">
   <div class="hp-releases-header">
-    <span class="hp-releases-pill">This week · {{ len $picks }} releases</span>
+    <span class="hp-releases-pill">{{ $label }}</span>
   </div>
   <div class="hp-releases-grid">
     {{- range $picks -}}
