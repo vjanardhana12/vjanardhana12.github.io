@@ -1,57 +1,79 @@
 {{/*
   latest-release banner shortcode
-  Picks the asset with the most recent `date` from data/assets.yaml
-  and renders a prominent "What's new" strip.
+  Shows every asset in data/assets.yaml whose `date` is within the last 7 days.
+  If nothing was published in the last 7 days, falls back to showing the single
+  most recent asset (so the banner is never empty).
 
   Usage:  {{< latest-release >}}
 */}}
 
-{{- $latest := false -}}
-{{- range (index hugo.Data.assets "assets") -}}
-  {{- if not $latest -}}{{- $latest = . -}}
-  {{- else -}}
-    {{- if (gt (.date | default 0) ($latest.date | default 0)) -}}
-      {{- $latest = . -}}
-    {{- end -}}
+{{- $all := (index hugo.Data.assets "assets") -}}
+{{- $now := now -}}
+{{- $cutoff := $now.AddDate 0 0 -7 -}}
+
+{{/* Build a list of {asset, parsedDate} pairs, filtering out entries with no date */}}
+{{- $withDates := slice -}}
+{{- range $all -}}
+  {{- $asset := . -}}
+  {{- with .date -}}
+    {{- $t := time . -}}
+    {{- $withDates = $withDates | append (dict "a" $asset "t" $t) -}}
   {{- end -}}
 {{- end -}}
 
-{{- with $latest }}
-{{- $typeIcon := "✨" -}}
-{{- if eq .type "tool"    }}{{- $typeIcon = "🛠️" -}}{{- end -}}
-{{- if eq .type "guide"   }}{{- $typeIcon = "📚" -}}{{- end -}}
-{{- if eq .type "video"   }}{{- $typeIcon = "📺" -}}{{- end -}}
-{{- if eq .type "snippet" }}{{- $typeIcon = "🧠" -}}{{- end -}}
-{{- $visBadge := "" -}}
-{{- if eq .visibility "public"      }}{{- $visBadge = "🌐 Public" -}}{{- end -}}
-{{- if eq .visibility "ms-internal" }}{{- $visBadge = "🔒 Microsoft" -}}{{- end -}}
-{{- if eq .visibility "private"     }}{{- $visBadge = "🔐 Private" -}}{{- end -}}
-<div class="hp-release">
-  <div class="hp-release-left">
-    <span class="hp-release-pill">Latest Release</span>
-    <div class="hp-release-icon">{{ $typeIcon }}</div>
+{{/* Sort newest first */}}
+{{- $sorted := sort $withDates "t" "desc" -}}
+
+{{/* Filter to last 7 days */}}
+{{- $recent := slice -}}
+{{- range $sorted -}}
+  {{- if ge .t $cutoff -}}{{- $recent = $recent | append . -}}{{- end -}}
+{{- end -}}
+
+{{/* Fallback to single latest if nothing in the last 7 days */}}
+{{- $picks := $recent -}}
+{{- if not $picks -}}{{- $picks = first 1 $sorted -}}{{- end -}}
+
+{{- $multi := gt (len $picks) 1 -}}
+{{- $label := "Latest Release" -}}
+{{- if $multi -}}{{- $label = printf "This week (%d releases)" (len $picks) -}}{{- end -}}
+
+{{- if $picks }}
+<div class="hp-releases{{ if $multi }} hp-releases-multi{{ end }}">
+  <div class="hp-releases-header">
+    <span class="hp-releases-pill">{{ $label }}</span>
   </div>
-  <div class="hp-release-body">
-    <div class="hp-release-title">{{ .title }}{{ with .version }} <span class="hp-release-ver">v{{ . }}</span>{{ end }}</div>
-    <div class="hp-release-desc">{{ .description }}</div>
-    <div class="hp-release-meta">
-      {{- with .date }}<span class="hp-release-meta-item">📅 {{ dateFormat "Jan 2, 2006" . }}</span>{{ end -}}
-      {{- with $visBadge }}<span class="hp-release-meta-item">{{ . }}</span>{{ end -}}
-      {{- with .tags }}{{- range first 4 . }}<span class="hp-release-tag">#{{ . }}</span>{{ end }}{{ end -}}
-    </div>
-  </div>
-  <div class="hp-release-actions">
-    {{- with .download }}<a href="{{ . }}" class="hp-release-cta"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:-3px;margin-right:0.35rem;"><path d="M12 3a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42L11 14.6V4a1 1 0 0 1 1-1Zm-7 16a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Z"/></svg>Download</a>{{ end -}}
-    {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hp-release-cta-secondary"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:-3px;margin-right:0.35rem;"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>GitHub</a>{{ end -}}
+  <div class="hp-releases-grid">
+    {{- range $picks -}}
+      {{- $item := .a -}}
+      {{- $typeIcon := "✨" -}}
+      {{- if eq $item.type "tool"    }}{{- $typeIcon = "🛠️" -}}{{- end -}}
+      {{- if eq $item.type "guide"   }}{{- $typeIcon = "📚" -}}{{- end -}}
+      {{- if eq $item.type "video"   }}{{- $typeIcon = "📺" -}}{{- end -}}
+      {{- if eq $item.type "snippet" }}{{- $typeIcon = "🧠" -}}{{- end -}}
+      {{- $visBadge := "" -}}
+      {{- if eq $item.visibility "public"      }}{{- $visBadge = "🌐 Public" -}}{{- end -}}
+      {{- if eq $item.visibility "ms-internal" }}{{- $visBadge = "🔒 Microsoft" -}}{{- end -}}
+      {{- if eq $item.visibility "private"     }}{{- $visBadge = "🔐 Private" -}}{{- end -}}
+      {{- $href := $item.slug | default $item.url -}}
+      <a href="{{ $href }}" class="hp-release-card">
+        <div class="hp-release-icon">{{ $typeIcon }}</div>
+        <div class="hp-release-body">
+          <div class="hp-release-title">{{ $item.title }}{{ with $item.version }} <span class="hp-release-ver">v{{ . }}</span>{{ end }}</div>
+          <div class="hp-release-desc">{{ $item.description }}</div>
+          <div class="hp-release-meta">
+            {{- with $item.date }}<span class="hp-release-meta-item">📅 {{ dateFormat "Jan 2, 2006" . }}</span>{{ end -}}
+            {{- with $visBadge }}<span class="hp-release-meta-item">{{ . }}</span>{{ end -}}
+            {{- with $item.tags }}{{- range first 4 . }}<span class="hp-release-tag">#{{ . }}</span>{{ end }}{{ end -}}
+          </div>
+        </div>
+      </a>
+    {{- end -}}
   </div>
 </div>
 
 <style>
-  .hp-release {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1.25rem;
-    align-items: center;
+  .hp-releases {
     margin: 0 0 2rem 0;
     padding: 1.25rem 1.5rem;
     border-radius: 16px;
@@ -60,14 +82,13 @@
     box-shadow: 0 6px 24px rgba(34, 211, 238, 0.12);
     color: #e6f4f7;
   }
-  .hp-release-left {
+  .hp-releases-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.6rem;
-    min-width: 110px;
+    margin-bottom: 0.85rem;
   }
-  .hp-release-pill {
+  .hp-releases-pill {
     font-size: 0.65rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -79,79 +100,69 @@
     border: 1px solid rgba(34, 211, 238, 0.4);
     white-space: nowrap;
   }
-  .hp-release-icon { font-size: 1.8rem; line-height: 1; }
+  .hp-releases-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .hp-releases-multi .hp-releases-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .hp-release-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem;
+    align-items: start;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #e6f4f7 !important;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .hp-release-card:hover {
+    transform: translateY(-1px);
+    background: rgba(34,211,238,0.06);
+    box-shadow: 0 4px 12px rgba(34,211,238,0.15);
+  }
+  .hp-release-icon { font-size: 1.6rem; line-height: 1; }
   .hp-release-body { min-width: 0; }
   .hp-release-title {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.3rem;
     line-height: 1.3;
   }
-  .hp-release-ver { color: #22d3ee; font-weight: 500; font-size: 0.95em; }
+  .hp-release-ver { color: #22d3ee; font-weight: 500; font-size: 0.9em; }
   .hp-release-desc {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    opacity: 0.9;
-    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    opacity: 0.88;
+    margin-bottom: 0.55rem;
   }
   .hp-release-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 0.75rem;
+    gap: 0.35rem 0.7rem;
     align-items: center;
   }
   .hp-release-meta-item {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: #b8d4d9;
     opacity: 0.85;
   }
   .hp-release-tag {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: #22d3ee;
     background: rgba(34, 211, 238, 0.08);
     padding: 2px 7px;
     border-radius: 4px;
   }
-  .hp-release-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: 150px;
-  }
-  .hp-release-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    padding: 0.55rem 1.1rem;
-    border-radius: 8px;
-    background: #22d3ee;
-    color: #0d1b22 !important;
-    text-decoration: none;
-    font-weight: 600;
-    white-space: nowrap;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .hp-release-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4); }
-  .hp-release-cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.82rem;
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
-    background: transparent;
-    color: #22d3ee !important;
-    text-decoration: none;
-    font-weight: 500;
-    white-space: nowrap;
-    border: 1px solid rgba(34, 211, 238, 0.3);
-  }
-  .hp-release-cta-secondary:hover { background: rgba(34, 211, 238, 0.08); }
   @media (max-width: 720px) {
-    .hp-release { grid-template-columns: 1fr; text-align: center; }
-    .hp-release-actions { flex-direction: row; justify-content: center; }
+    .hp-release-card { grid-template-columns: 1fr; }
+    .hp-release-icon { display: none; }
   }
 </style>
 {{- end -}}
