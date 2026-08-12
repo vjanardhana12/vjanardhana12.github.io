@@ -18,21 +18,9 @@
         <span class="hp-nav-icon">🛠️</span>
         <span>Tools &amp; Kits</span>
       </a>
-      <a href="/guides/" class="hp-nav-item">
-        <span class="hp-nav-icon">📚</span>
-        <span>Guides</span>
-      </a>
-      <a href="/videos/" class="hp-nav-item">
-        <span class="hp-nav-icon">📺</span>
-        <span>Videos</span>
-      </a>
       <a href="/blog/" class="hp-nav-item">
         <span class="hp-nav-icon">📝</span>
         <span>Blog</span>
-      </a>
-      <a href="/snippets/" class="hp-nav-item">
-        <span class="hp-nav-icon">🧠</span>
-        <span>Snippets</span>
       </a>
       <div class="hp-nav-divider"></div>
       <div class="hp-nav-title">Discover</div>
@@ -127,8 +115,8 @@
           <div class="hp-stat-label">MS-internal</div>
         </div>
         <div class="hp-stat">
-          <div class="hp-stat-num">{{ len $guides }}</div>
-          <div class="hp-stat-label">Guides</div>
+          <div class="hp-stat-num">{{ len (where .Site.RegularPages "Section" "blog") }}</div>
+          <div class="hp-stat-label">Blog posts</div>
         </div>
       </div>
     </div>

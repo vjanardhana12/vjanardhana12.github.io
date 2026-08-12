@@ -1,0 +1,22 @@
+# Explicit header menu — only sections with real content.
+# (Prevents Blowfish from auto-listing empty sections like guides/videos/snippets.)
+
+[[main]]
+  name = "Tools & Kits"
+  pageRef = "projects"
+  weight = 10
+
+[[main]]
+  name = "Blog"
+  pageRef = "blog"
+  weight = 20
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 30
+
+[[main]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 40
