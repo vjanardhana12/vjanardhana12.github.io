@@ -3,7 +3,7 @@ title: "D365 F&O CAR Unified"
 description: "Customization Analysis Report tool for Dynamics 365 F&O. Modern successor to CAREvolved: multi-root, UDE-ready, Office-free Excel, better UX, and a drop-in Azure DevOps pipeline pack."
 date: 2026-07-27
 tags: [D365FO, BP, CAR, PowerShell, DevOps, UDE, Pipeline]
-repo: "https://github.com/vjanardhana12/CarUnified"
+repo: "https://github.com/mcaps-microsoft/D365FO-CARUnifiedReportTool"
 version: "1.0.0"
 visibility: "ms-internal"
 showReadingTime: false
