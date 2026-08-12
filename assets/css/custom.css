@@ -23,3 +23,59 @@ code, pre, kbd, samp {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 }
+
+/* ─────────────────────────────────────────────
+   Dark-mode readability pass (higher contrast)
+   Cohesive deep teal-slate background so the teal
+   cards and white text pop; brighter body + accents.
+   ───────────────────────────────────────────── */
+.dark body {
+  background-color: #0c161b !important;   /* deep teal-slate page bg */
+  color: #e6eef1 !important;              /* brighter body text */
+}
+
+/* Headings crisp near-white */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #f5fafb !important;
+}
+
+/* Prose / article body brighter */
+.dark .prose,
+.dark .prose p,
+.dark .prose li,
+.dark .article-content {
+  color: #d7e3e7 !important;
+}
+
+/* Links use the brighter teal, clear on hover */
+.dark a { color: #38dcf0; }
+.dark a:hover { color: #6ee7f5; }
+
+/* Lift the muted secondary text the theme sets via opacity */
+.dark .hp-headline,
+.dark .hp-bio,
+.dark .hp-hero-sub {
+  opacity: 1 !important;
+}
+.dark .hp-hero-sub { color: #cddbe0 !important; }
+.dark .hp-headline { color: #a9bec4 !important; }
+.dark .hp-bio { color: #c2d2d7 !important; }
+
+/* Cards / panels: sit slightly above the page bg with a subtle border */
+.dark .hp-profile-card,
+.dark .hp-stats,
+.dark .hp-topics,
+.dark .hp-news {
+  background: #10222a !important;
+  border-color: rgba(148, 179, 189, 0.18) !important;
+}
+
+/* Nav + topic pills a touch brighter */
+.dark .hp-nav-item { color: #c7d6db; }
+.dark .hp-topic-pill,
+.dark .hp-chip {
+  color: #d3e2e7;
+}
+
+/* "TOOL" eyebrow / card meta lines that read too dim */
+.dark .hp-hero-eyebrow { color: #38dcf0 !important; opacity: 1 !important; }
