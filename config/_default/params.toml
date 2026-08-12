@@ -1,8 +1,8 @@
 # Blowfish theme params — main configuration
 
-colorScheme = "blowfish"          # try also: "avocado", "fire", "ocean", "slate", "congo"
+colorScheme = "custom"            # teal/cyan primary — see assets/css/schemes/custom.css
 defaultAppearance = "dark"        # "light" or "dark"
-autoSwitchAppearance = true       # follows OS setting
+autoSwitchAppearance = false      # dark-only site (custom widgets are dark-tuned)
 
 enableSearch = true
 enableCodeCopy = true
