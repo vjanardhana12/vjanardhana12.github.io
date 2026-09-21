@@ -26,11 +26,11 @@ One-click sync of the **core D365 F&O NuGet package set** from the **LCS Shared 
 
 1. Click **Download** above to get the latest `Sync-D365FONuGet.zip`.
 2. Right-click the zip → **Properties → Unblock**, extract it, then double-click **`Sync-D365FONuGet.bat`** — it works even where `.exe` files are blocked. (Prefer the app? `Sync-D365FONuGet.exe` is in the zip too.)
-3. Provide your ADO feed, email, and PAT on first run (saved per-user; PAT never saved).
+3. Provide your ADO feed, email, and PAT on first run (saved per-user; PAT not stored between runs).
 4. Re-run anytime — only new packages get uploaded (~30 sec for "all in sync").
 
 ## Why it matters
 
-D365 F&O development requires the right NuGet packages from LCS to be present in your ADO feed for builds and packaging. Manual download/upload is slow, error-prone, and uses ~2 GB per release. This tool reduces that to one click and ~30 seconds.
+D365 F&O builds need the right NuGet packages from LCS present in your ADO feed. Each platform version is a set of 5 packages totalling **~2 GB**, which you'd otherwise download from LCS and push to Azure DevOps by hand — slow and easy to get wrong. This tool does it in one click and about 30 seconds.
 
 Open source under MIT License.
