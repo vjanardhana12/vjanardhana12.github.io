@@ -74,27 +74,6 @@ assets:
     version: "1.0.0"
     date: "2026-09-21"
     featured: true
-  - title: "D365 F&O Deployment Release Notes"
-    type: tool
-    slug: "/projects/d365fo-deployment-release-notes/"
-    description: >
-      Automated deployment release notes for D365 Finance & Operations, published to Azure DevOps project wiki on every build with live environment tracking, package versions, and data entity change detection.
-
-    tags:
-      - D365FO
-      - Azure-DevOps
-      - Release-Notes
-      - Wiki
-      - ALM
-      - DevOps
-      - Mermaid
-      - Pipeline
-    visibility: public
-    url: "https://github.com/vjanardhana12/d365fo-deployment-release-notes"
-    repo: "vjanardhana12/d365fo-deployment-release-notes"
-    version: "1.0.0"
-    date: "2026-05-27"
-    featured: true
   - title: "ADO Dev Task Creator"
     type: tool
     slug: "/projects/ado-dev-task-creator/"
@@ -113,23 +92,3 @@ assets:
     version: "1.0.0"
     date: "2026-05-01"
     featured: false
-  - title: "D365 F&O AI Co-Lead"
-    type: tool
-    slug: "/projects/d365fo-ai-co-lead/"
-    description: >
-      Your AI partner across the entire F&O delivery lifecycle. One VS Code extension, six role-aware Copilot Chat partners (Architect, FC, Dev Lead, Developer, Tester, PM), and an in-product Agent Factory.
-
-    tags:
-      - D365FO
-      - AI-ERP
-      - VSCode
-      - MCP
-      - AI-assisted-dev
-      - Copilot
-    visibility: public
-    url: "https://github.com/vjanardhana12/d365fo-ai-co-lead"
-    repo: "vjanardhana12/d365fo-ai-co-lead"
-    download: "https://github.com/vjanardhana12/d365fo-ai-co-lead/releases/latest"
-    version: "1.1.0"
-    date: "2026-05-02"
-    featured: true
