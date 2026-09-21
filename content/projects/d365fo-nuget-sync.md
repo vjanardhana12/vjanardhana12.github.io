@@ -18,7 +18,7 @@ One-click sync of the **core D365 F&O NuGet package set** from the **LCS Shared 
 
 - **Smart compare** — queries your ADO feed first, only pushes what's missing or newer. No wasted uploads.
 - **Parallel uploads** — up to 3 concurrent. Big 350 MB packages don't block each other.
-- **Safe by default** — PAT never saved. Per-user config in `%LOCALAPPDATA%`.
+- **Safe by default** — your PAT isn't stored between runs. Per-user config in `%LOCALAPPDATA%`.
 - **Self-updating** — silently checks GitHub for newer versions on startup.
 - **No setup** — no PowerShell modules, no NuGet CLI install, no AAD app. Just double-click.
 
