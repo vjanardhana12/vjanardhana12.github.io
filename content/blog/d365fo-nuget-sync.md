@@ -1,6 +1,7 @@
 ---
 title: "D365 F&O NuGet Sync — one-click LCS to Azure DevOps Artifacts"
 date: 2026-04-24
+lastmod: 2026-09-21
 draft: false
 description: "A small PowerShell tool that compares your ADO feed with local .nupkg files and pushes only what's missing. Single EXE. Open source."
 tags: ["D365FO", "PowerShell", "ALM", "DevOps", "NuGet"]
@@ -48,12 +49,12 @@ The semi-automated approach (script → opens LCS → you click download → scr
 
 ## How to get it
 
-- **Download:** [Sync-D365FONuGet.zip (direct, ~26 KB)](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip) · or [view release notes](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
-  - *First run on Windows*: right-click the zip → **Properties → Unblock** before extracting. SmartScreen may prompt on first launch (*More info → Run anyway*) — expected for unsigned indie tools. The source is in the repo, every line auditable.
+- **Download:** [Sync-D365FONuGet.zip](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest/download/Sync-D365FONuGet.zip) · or [view release notes](https://github.com/vjanardhana12/d365fo-nuget-sync/releases/latest)
+  - *First run on Windows*: right-click the zip → **Properties → Unblock** before extracting.
 - **Source:** [github.com/vjanardhana12/d365fo-nuget-sync](https://github.com/vjanardhana12/d365fo-nuget-sync)
 - **License:** MIT
 
-A single 56 KB `.exe`. Double-click it. Enter your ADO feed URL and email once (saved per-user to `%LOCALAPPDATA%`). Generate a PAT with **Packaging (Read & Write)** scope. Done.
+Extract the zip and **double-click `Sync-D365FONuGet.bat`** — no install, no PowerShell setup, and it works even where `.exe` files are blocked. (Prefer the app? Run `Sync-D365FONuGet.exe`. Prefer the raw script? Run `Sync-D365FONuGet.ps1`.) Enter your ADO feed URL and email once (saved per-user to `%LOCALAPPDATA%`); generate a PAT with **Packaging (Read & Write)** scope. Done.
 
 ## What's in the box
 
